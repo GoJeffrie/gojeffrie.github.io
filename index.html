@@ -47,6 +47,21 @@
       align-items: center;
     }
 
+    /* Style for the container holding Silverwolf image and subtitle */
+    .silverwolf-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2em;
+    }
+
+    .silverwolf-img {
+      width: 100px; /* Adjusted for alignment */
+      margin-right: 1em;
+      filter: drop-shadow(0 0 10px #00ffeeaa);
+      image-rendering: pixelated;
+    }
+
     .error-box {
       background-color: #1a1a2d;
       padding: 1.5em 2em;
@@ -81,13 +96,25 @@
       margin-top: 0.5em;
       padding-left: 1em;
     }
+
+    /* Style for the footer note */
+    .footer-note {
+      font-size: 0.9em;
+      color: #666;
+      margin-top: 2em;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
   <h1>404: Teyvat Not Found</h1>
-  <div class="subtitle">Silverwolf.exe is scanning...</div>
+
+  
 
   <div class="center-stack">
+  
+    <div class="subtitle">Silverwolf.exe is scanning...</div>
+
     <div class="error-box">
       <p><strong>Error Code:</strong> 404.SW.TEYVAT_MISSING</p>
       <p><strong>Possible Causes:</strong></p>
@@ -98,8 +125,17 @@
       </ul>
       <p class="quote">"If it doesn't exist, just make your own version." – Silver Wolf</p>
     </div>
-
+  <!-- Silverwolf Image and Subtitle Container -->
+  <div class="silverwolf-container">
+    <img src="https://64.media.tumblr.com/d849286ca36080fe567075278377f03f/e9a51100ce469ca3-c4/s640x960/3eb67afa84ebed8dccc9e195d8baa7b187ba7536.png" alt="Silverwolf" class="silverwolf-img" />
     <a class="home-link" href="/">Return to Homebase</a>
+  </div>
+  </div>
+   
+
+  <!-- Footnote -->
+  <div class="footer-note">
+    <p>Silverwolf graphic is property of Cognosphere. All rights reserved.</p>
   </div>
 </body>
 </html>
