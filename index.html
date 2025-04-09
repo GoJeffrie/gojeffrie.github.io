@@ -41,15 +41,21 @@
       50% { border-color: transparent }
     }
 
+    .center-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
     .error-box {
       background-color: #1a1a2d;
-      display: inline-block;
       padding: 1.5em 2em;
       border-radius: 10px;
       border: 1px solid #333;
       box-shadow: 0 0 15px #00ffee33;
       max-width: 500px;
       margin-bottom: 1.5em;
+      text-align: left;
     }
 
     .quote {
@@ -59,14 +65,12 @@
     }
 
     .home-link {
-      display: inline-block;
       color: #00ffee;
       text-decoration: none;
       border: 1px solid #00ffee;
       padding: 0.5em 1em;
       border-radius: 5px;
       transition: background 0.2s;
-      margin-top: 1em;
     }
 
     .home-link:hover {
@@ -74,9 +78,7 @@
     }
 
     ul {
-      text-align: left;
-      margin: 1em auto;
-      max-width: 400px;
+      margin-top: 0.5em;
       padding-left: 1em;
     }
   </style>
@@ -85,17 +87,19 @@
   <h1>404: Teyvat Not Found</h1>
   <div class="subtitle">Silverwolf.exe is scanning...</div>
 
-  <div class="error-box">
-    <p><strong>Error Code:</strong> 404.SW.TEYVAT_MISSING</p>
-    <p><strong>Possible Causes:</strong></p>
-    <ul>
-      <li>Clicked a broken hyperlink from another universe</li>
-      <li>Silverwolf hacked too deep</li>
-      <li>The Archons don’t want you here</li>
-    </ul>
-    <p class="quote">"If it doesn't exist, just make your own version." – Silver Wolf</p>
-  </div>
+  <div class="center-stack">
+    <div class="error-box">
+      <p><strong>Error Code:</strong> 404.SW.TEYVAT_MISSING</p>
+      <p><strong>Possible Causes:</strong></p>
+      <ul>
+        <li>Clicked a broken hyperlink from another universe</li>
+        <li>Silverwolf hacked too deep</li>
+        <li>The Archons don’t want you here</li>
+      </ul>
+      <p class="quote">"If it doesn't exist, just make your own version." – Silver Wolf</p>
+    </div>
 
-  <a class="home-link" href="/">Return to Homebase</a>
+    <a class="home-link" href="/">Return to Homebase</a>
+  </div>
 </body>
 </html>
