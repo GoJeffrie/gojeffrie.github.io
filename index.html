@@ -1,61 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Welcome, Trailblazer</title>
+  <title>404 | Teyvat Not Found</title>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #1a1a2e;
-      color: #f0f0f0;
+      background-color: #0e0e1a;
+      color: #e0e0f0;
+      font-family: 'Courier New', Courier, monospace;
       text-align: center;
-      padding: 2em;
+      padding: 4em 2em;
     }
 
     h1 {
-      font-size: 3em;
-      margin-bottom: 0.5em;
+      font-size: 3.5em;
+      margin-bottom: 0.2em;
+      color: #00ffee;
     }
 
     .subtitle {
-      font-size: 1.5em;
-      color: #00ffe0;
+      font-size: 1.2em;
+      color: #888;
+      margin-bottom: 2em;
     }
 
-    .content {
-      margin-top: 2em;
-      font-size: 1.1em;
-      max-width: 600px;
-      margin-left: auto;
-      margin-right: auto;
+    img {
+      width: 250px;
+      margin-bottom: 2em;
+      filter: drop-shadow(0 0 10px #00ffeeaa);
+    }
+
+    .error-box {
+      background-color: #1a1a2d;
+      display: inline-block;
+      padding: 1.5em 2em;
+      border-radius: 10px;
+      border: 1px solid #333;
+      box-shadow: 0 0 15px #00ffee33;
+      max-width: 500px;
     }
 
     .quote {
-      margin-top: 2em;
       font-style: italic;
       color: #aaa;
+      margin-top: 1.5em;
     }
 
-    .footer {
-      margin-top: 3em;
-      font-size: 0.9em;
-      color: #666;
+    .home-link {
+      margin-top: 2em;
+      display: inline-block;
+      color: #00ffee;
+      text-decoration: none;
+      border: 1px solid #00ffee;
+      padding: 0.5em 1em;
+      border-radius: 5px;
+      transition: background 0.2s;
+    }
+
+    .home-link:hover {
+      background-color: #00ffee22;
     }
   </style>
 </head>
 <body>
-  <h1>System Boot: Genshin.exe + HSR.dll</h1>
-  <div class="subtitle">Welcome, Casual Main</div>
-  
-  <div class="content">
-    <p>You've entered a zone where builds are questionable, artifacts are cursed, and screenshots are sacred.</p>
-    <p>This isn't a min-max lab. It's a digital lounge for pulling pixels and pausing for pretty skies.</p>
-    <p>Here, we believe in luck-based success, emotional damage from gacha rolls, and the art of not reading quest text.</p>
-    
-    <div class="quote">“I may not have the meta team, but I do have style.”</div>
+  <h1>404: Teyvat Not Found</h1>
+  <div class="subtitle">Silverwolf.exe failed to locate this domain in the multiverse</div>
+
+  <img src="https://upload-os-bbs.mihoyo.com/upload/2023/06/01/153635089/3e7e1a88aeb2962d69ab7a5f45e7f4d7_3684550389738286604.png" alt="Silverwolf sprite"/>
+
+  <div class="error-box">
+    <p><strong>Error Code:</strong> 404.SW.TEYVAT_MISSING</p>
+    <p><strong>Possible Causes:</strong></p>
+    <ul style="text-align: left;">
+      <li>Clicked a broken hyperlink from another universe</li>
+      <li>Silverwolf hacked too deep</li>
+      <li>The Archons don’t want you here</li>
+    </ul>
+    <p class="quote">"If it doesn't exist, just make your own version." – Silver Wolf</p>
   </div>
 
-  <div class="footer">© 2025 - Built with resin, fuel, and absolutely no optimization.</div>
+  <a class="home-link" href="/">Return to Homebase</a>
 </body>
 </html>
