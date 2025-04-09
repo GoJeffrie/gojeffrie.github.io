@@ -7,7 +7,7 @@
   <style>
     body {
       background-color: #0e0e1a;
-      color: #e0e0f0;
+      color: #e0ffe0;
       font-family: 'Courier New', Courier, monospace;
       text-align: center;
       padding: 4em 2em;
@@ -21,15 +21,24 @@
 
     .subtitle {
       font-size: 1.2em;
-      color: #888;
+      color: #88f;
       margin-bottom: 2em;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 2px solid #00ffee;
+      width: 24ch;
+      margin-left: auto;
+      margin-right: auto;
+      animation: typing 3s steps(24), blink 0.75s step-end infinite;
     }
 
-    img {
-      width: 280px;
-      margin-bottom: 2em;
-      filter: drop-shadow(0 0 10px #00ffeeaa);
-      border-radius: 10px;
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 24ch }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent }
     }
 
     .error-box {
@@ -40,6 +49,7 @@
       border: 1px solid #333;
       box-shadow: 0 0 15px #00ffee33;
       max-width: 500px;
+      margin-bottom: 1.5em;
     }
 
     .quote {
@@ -49,7 +59,6 @@
     }
 
     .home-link {
-      margin-top: 2em;
       display: inline-block;
       color: #00ffee;
       text-decoration: none;
@@ -57,6 +66,7 @@
       padding: 0.5em 1em;
       border-radius: 5px;
       transition: background 0.2s;
+      margin-top: 1em;
     }
 
     .home-link:hover {
@@ -73,7 +83,7 @@
 </head>
 <body>
   <h1>404: Teyvat Not Found</h1>
-  <div class="subtitle">Silverwolf.exe failed to locate this domain in the multiverse</div>
+  <div class="subtitle">Silverwolf.exe is scanning...</div>
 
   <div class="error-box">
     <p><strong>Error Code:</strong> 404.SW.TEYVAT_MISSING</p>
