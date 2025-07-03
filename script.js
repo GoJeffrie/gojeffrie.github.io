@@ -54,7 +54,7 @@ function renderCards(list, container, isWorkList) {
     const placeholder = document.createElement('div');
     placeholder.id = 'work-placeholder';
     placeholder.className = 'placeholder';
-    placeholder.textContent = 'Work Area. Drop Characters Here';
+    placeholder.textContent = 'Concept Design Site. Thanks for Stopping By.';
     container.appendChild(placeholder);
   }
 
