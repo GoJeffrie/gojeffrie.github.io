@@ -1,12 +1,11 @@
 let fullRoster = [];
 let workList = [];
 
-// Load JSON data and saved state from localStorage
+// Load CSV data from Google Sheets and saved state from localStorage
 async function loadRoster() {
-  const res = await fetch('roster.json');
-  const data = await res.json();
+  const data = await fetchRosterFromSheet();
 
-  fullRoster = [...data.roster, ...data.workList];
+  fullRoster = [...data]; // everything from sheet
   const savedWorkNames = JSON.parse(localStorage.getItem('workList')) || [];
 
   workList = savedWorkNames
@@ -18,6 +17,33 @@ async function loadRoster() {
 
   renderCards(workList, document.getElementById('work-list'), true);
   renderCards(rest, document.getElementById('roster-list'), false);
+}
+
+// Fetch Google Sheets CSV and convert to JSON
+async function fetchRosterFromSheet() {
+  const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTb7hj7ghBnYKbDle7Ky_JYiofxnhBnF4LKn9n0jhluoNJtfeC5iR_L3c-ZMId9FT1445sQh6uACKeS/pub?gid=1778894250&single=true&output=csv';
+  const res = await fetch(url);
+  const csv = await res.text();
+
+  const rows = csv.split('\n').map(r => r.split(','));
+  const headers = rows[0];
+  const data = rows.slice(1).map(row =>
+    Object.fromEntries(headers.map((h, i) => [h.trim(), row[i]?.trim()]))
+  );
+
+  // convert strings to numbers where needed
+  const roster = data.map(char => ({
+    ...char,
+    level: +char.level,
+    constellation: +char.constellation,
+    talent1: +char.talent1,
+    talent2: +char.talent2,
+    talent3: +char.talent3,
+    friendship: +char.friendship,
+    rarity: +char.rarity
+  }));
+
+  return roster;
 }
 
 // Render character cards and placeholder
@@ -103,6 +129,7 @@ function addSearch() {
   });
 }
 
+// Initialize page
 document.addEventListener('DOMContentLoaded', () => {
   loadRoster().then(() => {
     enableDragAndDrop();
