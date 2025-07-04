@@ -54,7 +54,7 @@ function renderCards(list, container, isWorkList) {
     const placeholder = document.createElement('div');
     placeholder.id = 'work-placeholder';
     placeholder.className = 'placeholder';
-    placeholder.textContent = 'Concept Design Site. Thanks for Stopping By.';
+    placeholder.textContent = 'Work Area. Drop Characters Here';
     container.appendChild(placeholder);
   }
 
@@ -70,11 +70,11 @@ function renderCards(list, container, isWorkList) {
       </div>
       <div class="charStats">
         <div class="${constellationClass}">C${char.constellation}</div>
-        <div>${char.level}</div>
         <div>${char.talent1}</div>
         <div>${char.talent2}</div>
         <div>${char.talent3}</div>
-        <div class="friendStat">${char.friendship}</div>
+        <!--<div>${char.level}</div>
+        <div class="friendStat">${char.friendship}-->
       </div>
       <div class="content"></div>
     `;
