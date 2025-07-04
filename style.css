@@ -58,11 +58,13 @@ body {
 
 .charStats {
   position:absolute;
-  top: 3px;
-  left: 2px;
+  top: 0px;
+  left: 0px;
   font-size: 14px;
   font-weight: bold;
-  color: #e0e0e0;
+  color: #faf8f8ee;
+  background: linear-gradient(to right, #030811cd, #10254500);
+  padding: 0.2rem 0.2rem 0.8rem;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.859);
   display: flex;
   flex-direction: column;
@@ -77,7 +79,7 @@ body {
 
 
 .fivestarStat {
-  color: #dbb04b;
+  color: #eabc4e;
 }
 
 .friendStat {
@@ -118,9 +120,10 @@ input#search {
   z-index: 10;
   margin-top: 4em;
   width: 380px;
+
   left: 50%;                  
   transform: translateX(-50%);
-  background: linear-gradient(to bottom right, #0b1528, #202c42);
+  background: linear-gradient(to bottom right, #314a79, #161e2b);
   border: .5px solid #32baf462;
   border-radius: 6px;
   padding: 1rem;
