@@ -137,20 +137,13 @@ input#search {
 }
 
 #roster-list {
-  gap: 13px;
+  gap: 18px;
   justify-items: center;
   margin-top: 13em;
 }
 
 .roster-wrapper {
   overflow-x: auto;
-}
-
-.roster-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-  gap: 10px;
-  padding: 10px;
 }
 
 .placeholder {
