@@ -137,9 +137,9 @@ input#search {
 }
 
 #roster-list {
-  gap: 12px;
+  gap: 13px;
   justify-items: center;
-  margin-top: 17em;
+  margin-top: 13em;
 }
 
 .roster-wrapper {
