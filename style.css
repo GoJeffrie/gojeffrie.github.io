@@ -58,9 +58,9 @@ body {
 
 .charStats {
   position:absolute;
-  top: 0px;
+  top: 1px;
   left: 0px;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: bold;
   color: #faf8f8ee;
   background: linear-gradient(to right, #030811cd, #10254500);
