@@ -54,30 +54,40 @@ function renderCards(list, container, isWorkList) {
     const placeholder = document.createElement('div');
     placeholder.id = 'work-placeholder';
     placeholder.className = 'placeholder';
-    placeholder.textContent = 'Concept Design Site. Thanks for Stoppying By.';
+    placeholder.textContent = 'Concept Designs. Thanks for Stopping By.';
     container.appendChild(placeholder);
   }
 
   list.forEach(char => {
     const card = document.createElement('div');
-    const isFiveStar = char.rarity === 5;
-    const constellationClass = isFiveStar ? 'fivestarStat' : '';
+    let constellationClass = '';
+     if (char.rarity === 5) {
+        constellationClass = 'fivestarStat';
+     } else if (char.rarity === 4) {
+        constellationClass = 'fourstarStat';
+    }
+
     card.className = `charCard element-${char.element.toLowerCase()}`;
     card.dataset.name = char.name;
     card.innerHTML = `
-      <div class="charInfo">
-        <img class="portrait" src="${char.avatar}" alt="${char.name}">
-      </div>
-      <div class="charStats">
-        <div class="${constellationClass}">C${char.constellation}</div>
-        <div>${char.talent1}</div>
-        <div>${char.talent2}</div>
-        <div>${char.talent3}</div>
-        <!--<div>${char.level}</div>
-        <div class="friendStat">${char.friendship}-->
-      </div>
-      <div class="content"></div>
-    `;
+    <div class="charInfo">
+    <img class="portrait" src="${char.avatar}" alt="${char.name}">
+    </div>
+    <div class="gradientOverlay"></div>
+
+    <div class="charStats">
+    <!--<div class="levelStat">${char.level}</div>-->
+    <div>${char.talent1}</div>
+    <div>${char.talent2}</div>
+    <div>${char.talent3}</div>
+    <!--<div class="friendStat">${char.friendship}</div>-->
+    </div>
+    </div>
+    <div class="constellationBadge ${constellationClass}">C${char.constellation}</div>
+
+    
+   <div class="content"></div>
+`;
     container.appendChild(card);
   });
 }
