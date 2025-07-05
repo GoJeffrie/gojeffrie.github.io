@@ -72,7 +72,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1px; /* spacing between stat lines */
-  z-index: 34;
+  z-index: 3;
   line-height: 1.1;
 }
 
@@ -81,6 +81,7 @@ body {
   width: 150%;
   position: relative;
   object-fit: contain;
+  z-index: 1;
 }
 
 .gradientOverlay {
@@ -96,16 +97,16 @@ body {
 
 .constellationBadge {
   position: absolute;
-  top: 0px;
+  top: -2px;
   left: -3px;
   font-size: 0.8rem;
   font-weight: bold;
   background: rgba(0, 0, 0, 0.326);
-  padding: 0px 0px 0px 4px;
+  padding: 3px 2px 0px 4px;
   border-radius:3px;
   color: #fdd163;
   text-shadow: 1px 1px 1px rgb(0, 0, 0);
-  z-index: 5;
+  z-index: 3;
 }
 
 
@@ -176,6 +177,7 @@ input#search {
 }
 
 #roster-list {
+  z-index:5;
   gap: 18px;
   justify-items: center;
   margin-top: 15em;
@@ -183,6 +185,7 @@ input#search {
 
 .roster-wrapper {
   overflow-x: auto;
+  z-index:10;
 }
 
 .placeholder {
