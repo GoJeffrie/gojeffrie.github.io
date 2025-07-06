@@ -320,6 +320,16 @@ input#search {
   white-space: nowrap;
 }
 
+.modcharConBox {
+  background: rgba(0, 0, 0, 0.525);
+  padding: 2px 3px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #FFEFA0;
+  white-space: nowrap;
+}
+
 .modcharName {
   font-size: 1.1rem;
   font-weight: bold;
