@@ -25,7 +25,7 @@ body {
 }
 
 .element-cryo {
-  background: linear-gradient(to bottom right, #60d4fe, #12303f);
+  background: linear-gradient(to bottom right, #40c8fa, #12303f);
 }
 
 .element-anemo {
@@ -154,6 +154,7 @@ input#search {
   max-width: 300px;
 }
 
+/* Work list is what I'm working on*/
 #work-list {
   position: fixed;
   top: 0;
@@ -176,6 +177,7 @@ input#search {
   align-items: flex-start;
 }
 
+/* Roster lists everything I got*/
 #roster-list {
   z-index:5;
   gap: 18px;
@@ -198,28 +200,6 @@ input#search {
   pointer-events: none;
 }
 
-.infoPanel {
-  margin-top: -8px; /* pull it tight under card */
-  margin-bottom: 10px;
-  background: rgba(20, 20, 20, 0.9);
-  border-radius: 6px;
-  font-size: 0.65rem;
-  color: white;
-  padding: 6px 10px;
-  width: fit-content;
-  max-width: 180px;
-  text-align: left;
-  line-height: 1.4;
-  z-index: 10;
-  pointer-events: auto;
-}
-
-.cardWrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .footer {
   text-align: center;
   color: #969696;
@@ -230,7 +210,7 @@ input#search {
   opacity: 0.7;
 }
 
-/* Modal background */
+/* Information Pop Up (modal)*/
 .modal {
   display: none;
   position: fixed;
@@ -243,22 +223,22 @@ input#search {
   background-color: rgba(0,0,0,0.6);
 }
 
-/* Modal box */
 .modal-content {
-  background-color: #1e1e1e;
   color: white;
-  margin: 10% auto;
-  padding: 20px;
+  padding: 10px;
   border-radius: 8px;
-  width: 280px;
-  max-width: 90%;
+  width: 380px;
+  max-width: 100%;
   font-size: 0.9rem;
   font-family: sans-serif;
-  position: relative;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   box-shadow: 0 0 10px rgba(0,0,0,0.8);
 }
 
-/* Close button */
+
 .close-btn {
   position: absolute;
   top: 8px;
@@ -287,13 +267,15 @@ input#search {
 
 .portraitWrapper {
   position: relative;
-  text-align: center;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .modalPortrait {
   width: 100%;
-  border-radius: 10px;
   display: block;
+  border-radius: 10px;
 }
 
 .modalgradientOverlay {
@@ -301,26 +283,57 @@ input#search {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 40%;
+  height: 40%; /* or however much you want the fade to cover */
   background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
-  border-radius: 0 0 10px 10px;
-}
-
-.charName {
-  position: absolute;
-  bottom: -10px;
-  left: 0;
-  right: 0;
-  color: white;
-  font-weight: bold;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
-  font-size: 1rem;
+  z-index: 1;
+  pointer-events: none;
 }
 
 .modalRight {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  gap: 4px;
+  padding: 1px;
+  font-family: 'Segoe UI', sans-serif;
+  color: white;
+}
+
+.modcharRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.modcharStatBox {
+  background: rgba(0, 0, 0, 0.525);
+  padding: 2px 3px;
+  border-radius: 0px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.modcharName {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.modcharConstellation {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.modcharWeapon {
   font-size: 1rem;
-  color: #9f9d9d;
+  font-weight: bold;
+  color: #a5eaff;
+}
+.modcharMetaLabel {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #a0c0ff;
 }
