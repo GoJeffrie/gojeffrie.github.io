@@ -25,11 +25,11 @@ body {
 }
 
 .element-cryo {
-  background: linear-gradient(to bottom right, #03a9f4, #12303f);
+  background: linear-gradient(to bottom right, #60d4fe, #12303f);
 }
 
 .element-anemo {
-  background: linear-gradient(to bottom right, #4dd0e1, #10332e);
+  background: linear-gradient(to bottom right, #98f6d5, #10332e);
 }
 
 .element-geo {
@@ -37,7 +37,7 @@ body {
 }
 
 .element-dendro {
-  background: linear-gradient(to bottom right, #66bb6a, #1b2b1a);
+  background: linear-gradient(to bottom right, #58ac5d, #1b2b1a);
 }
 
 
