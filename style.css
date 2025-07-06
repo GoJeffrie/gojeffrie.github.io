@@ -1,60 +1,492 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Genshin Build Tracker</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
-</head>
-<body>
+body {
+  background: linear-gradient(to bottom right, #030811, #102545);
+  color: white;
+  margin: 0;
+  font-family: sans-serif;
+}
+/* what is the minimum amount of meaningful info I need to see? */
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+/* I want element colors for the card bg */
+.element-pyro {
+  background: linear-gradient(to bottom right, #c6262e, #3a0b0f);
+}
 
-<!-- Search + Hamburger Row -->
-<div class="navSection">
-  <input type="text" id="search" placeholder="Search characters..." autocomplete="off" />
+.element-hydro {
+  background: linear-gradient(to bottom right, #2196f3, #0a1c2d);
+}
 
-  <div class="hamburger" id="hamburger">
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-  </div>
-</div>
+.element-electro {
+  background: linear-gradient(to bottom right, #9c27b0, #2c0f35);
+}
 
-<!-- Menu outside navSection -->
-<div class="hamburgerMenu" id="hamburgerMenu">
-  <ul>
-   <li><button id="sortByDateBtn" class="tooltip" data-tooltip="Sort by Joined">🌠</button></li>
-   <li><button id="sortByRegion" class="tooltip" data-tooltip="Sort by Region">🗺️</button></li>
-   <li><button id="sortByElement" class="tooltip" data-tooltip="Sort by Element">💎</button></li>
-   <li><button id="sortByWeapon" class="tooltip" data-tooltip="Sort by Weapon"">⚔️</button></li>
-   <li><button id="sortByRarity" class="tooltip" data-tooltip="Sort by Rarity">⭐</button></li>
-   <li><button id="sortReset" class="tooltip" data-tooltip="Reset Sort">🔄</button></li>
+.element-cryo {
+  background: linear-gradient(to bottom right, #40c8fa, #12303f);
+}
 
-  </ul>
-</div>
-<!--Float the Work above Roster-->
-  <div class="workSection">
-    <div id="work-list" class="card-container droppable">
-    <div id="work-placeholder" class="placeholder"></div>
-    </div>
-  </div>
-  
-<div class="blurOverlay"></div>
+.element-anemo {
+  background: linear-gradient(to bottom right, #98f6d5, #10332e);
+}
 
-  <div class="rosterSection">
-    <div id="roster-list" class="card-container droppable"></div>
-  </div>
+.element-geo {
+  background: linear-gradient(to bottom right, #fbc02d, #3e2a00);
+}
 
-<!-- Modal pop up for character info -->
-<div id="charModal" class="modal">
-  <div class="modal-content">
-    <span class="close-btn">&times;</span>
-    <div id="modalBody"></div>
-  </div>
-</div>
+.element-dendro {
+  background: linear-gradient(to bottom right, #58ac5d, #1b2b1a);
+}
 
-  <footer class="footer">Messing with Javascript. All Rights Reserved ©2025</footer>
 
-  <script src="script.js"></script>
-</body>
-</html>
+.charCard {
+  aspect-ratio: 1 / 1; 
+  max-width: 70px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: #000000a2;
+  border-radius: 7px;
+  color: white;
+  border: 1px solid #f6f4f42e;
+  font-family: sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.charStats {
+  position: absolute;
+  top: 23px;
+  left: 1px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: rgba(0, 0, 0, 0);
+  padding: 1px 1px;
+  border-radius: 4px;
+  color: #f0f0f0f1;
+  text-shadow: 1px 1px 2px black;
+  display: flex;
+  flex-direction: column;
+  gap: 1px; /* this is the spacing between stat lines */
+  z-index: 3;
+  line-height: 1.1;
+}
+
+/* this looks good. for now */
+.portrait {
+  width: 140%;
+  right: 3px;
+  position: relative;
+  object-fit: contain;
+  z-index: 1;
+  filter: brightness(0.85);
+}
+
+.gradientOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.5), transparent 50%);
+  z-index: 2; /* keep this gradient below stats, above portrait */
+  pointer-events: none;
+}
+
+.constellationBadge {
+  position: absolute;
+  top: -2px;
+  left: -2.5px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0.326);
+  padding: 3px 2px 0px 4px;
+  border-radius:3px;
+  color: #fdd163;
+  text-shadow: 1px 1px 1px rgb(0, 0, 0);
+  z-index: 3;
+}
+
+/* I want the constellation color to indicate rarity */
+.fourstarStat {
+  color: #b488f2;
+  font-weight: bold;
+}
+
+.fivestarStat {
+  color: #fdd163; 
+
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  z-index: 3;
+}
+
+
+
+/* I want a section for what I'm currently grinding*/
+#work-list {
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  margin-top: 4em;
+  width: 380px;
+  left: 50%;                  
+  transform: translateX(-50%);
+  background: linear-gradient(to bottom right, #314a79, #161e2b);
+  border: .5px solid #32baf462;
+  border-radius: 6px;
+  padding: 1rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  min-height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.blurOverlay {
+  position: fixed;
+  top: -2px;
+  left: -2px;
+  width: 101%;
+  height: 120px; 
+  pointer-events: none;
+  z-index: 6; 
+  background: linear-gradient(to bottom, rgba(15, 20, 30, 0.923), rgba(15, 20, 30, 0));
+  backdrop-filter: blur(2px); 
+  -webkit-backdrop-filter: blur(2px); 
+  border: 1px solid #fdfdfe40;
+}
+
+/* I want a yearbook view of the entire fam/class */
+#roster-list {
+  z-index:5;
+  gap: 18px;
+  justify-items: center;
+  margin-top: 13em;
+}
+
+.roster-wrapper {
+  overflow-x: auto;
+  z-index:5;
+}
+
+.placeholder {
+  width: 100%;
+  text-align: center;
+  color: #969696;
+  font-style: italic;
+  padding: 2rem 1rem;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.footer {
+  text-align: center;
+  color: #969696;
+  font-size: 0.85rem;
+  padding: 1rem 0;
+  border-top: 1px solid #32baf462;
+  margin-top: 1rem;
+  opacity: 0.7;
+}
+
+/* I want a pop up for additional info. Don't break year book view. */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.6);
+}
+
+.modal-content {
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  width: 380px;
+  max-width: 100%;
+  font-size: 0.9rem;
+  font-family: sans-serif;
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 10px rgba(0,0,0,0.8);
+}
+
+.close-btn {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  color: #aaa;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #fff;
+}
+
+.modalBody {
+  display: flex;
+  gap: 10px;
+  padding: 0px;
+  align-items: flex-start;
+}
+
+.modalLeft {
+  position: relative;
+  width: 100px;
+  flex-shrink: 0;
+}
+
+.portraitWrapper {
+  position: relative;
+  width: 100%;
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+.modalPortrait {
+  width: 100%;
+  border : 1px solid #000000;
+  display: block;
+  border-radius: 7px;
+  position: relative;
+  z-index: 10;
+  filter: brightness(0.95);
+}
+
+.modalgradientOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 70%; 
+  background: linear-gradient(to top, rgb(0, 0, 0), transparent);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.modalRight {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 1px;
+  font-family: 'Segoe UI', sans-serif;
+  color: white;
+}
+
+.modcharRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.modcharStatBox {
+  background: rgba(0, 0, 0, 0.525);
+  padding: 2px 3px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.modcharConBox {
+  background: rgba(0, 0, 0, 0.525);
+  padding: 2px 3px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #FFEFA0;
+  white-space: nowrap;
+}
+
+.modcharName {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.modcharConstellation {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.modcharWeapon {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #a5eaff;
+}
+.modcharMetaLabel {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #a0c0ff;
+}
+
+/* I want a hamburger menu for roster sorting options. */
+.navSection {
+  position: fixed;
+  top: 4px;
+  z-index: 10;
+  left: 50%;                  
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px;
+}
+
+#search {
+  flex-grow: 1;
+  padding: 6px 10px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: none;
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+  width: 19px;
+  height: 19px;
+  gap: 3px;
+  margin-left: 8px;
+  background: linear-gradient(to bottom right, #314a79, #161e2b);
+  border: .5px solid #32baf462;
+  border-radius: 6px;
+  padding: 6px;
+  transition: background 0.2s ease;
+}
+
+.hamburger:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.hamburger .bar {
+  height: 3px;
+  background-color: white;
+  border-radius: 0px;
+}
+
+.hamburgerMenu {
+  position: fixed;
+  top: 12px;
+  left: 50%;                  
+  transform: translateX(-50%);
+  background: linear-gradient(to bottom right, #181c25, #161e2b);
+  border: .5px solid #32baf462;
+  border-radius: 6px;
+  z-index: 1000;
+  padding: 0px 6px;
+  display: none;
+}
+
+.hamburgerMenu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 8px; 
+}
+
+.hamburgerMenu li {
+  margin: 0; 
+}
+
+.hamburgerMenu button {
+  width: auto;
+  background: none;
+  color: white;
+  font-size: 1.2rem;
+  text-align: center;
+  border: none;
+  padding: 5px 5px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.hamburgerMenu button:hover {
+  background-color: #2F4673;
+  border-radius: 4px;
+}
+
+.tooltip {
+  position: relative;
+}
+
+.tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: 40px;
+  transform: translateX(-50%);
+  background: #333;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  font-size: 0.75rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  z-index: 10;
+}
+
+.tooltip:hover::after {
+  opacity: 1;
+}
+
+/* Header Style */
+.groupHeader {
+  aspect-ratio: 1 / 1;
+  width: 70px;
+  max-width: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to bottom right, #1a1a1a, #2e2e2e);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 7px;
+  box-shadow: 0 0 3px rgba(255, 255, 255, 0.05);
+  margin-bottom: 4px;
+  position: relative;
+  overflow: hidden;
+  z-index: 4;
+}
+
+.headerText {
+  color: whitesmoke;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.headerCount {
+  font-size: .8rem;
+  color: #a0c0ff;
+  opacity: 0.8;
+  text-align: center;
+}
+
+
