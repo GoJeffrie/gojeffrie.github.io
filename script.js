@@ -120,18 +120,21 @@ modalBody.innerHTML = `
 <div class="modalRight">
 
   <div class="modcharRow">
+    <span class="modcharConBox">${char.talent1}</span>
     <span class="modcharStatBox">${char.level}</span>
     <span class="modcharStatBox">C${char.constellation}</span>
     <span class="modcharName">${char.name}</span>
   </div>
 
   <div class="modcharRow">
+  <span class="modcharConBox">${char.talent2}</span>
     <span class="modcharStatBox">${char.wlevel}</span>
     <span class="modcharStatBox">R${char.wrefine}</span>
     <span class="modcharWeapon">${char.weapon}</span>
   </div>
 
   <div class="modcharRow">
+  <span class="modcharConBox">${char.talent3}</span>
     <span class="modcharStatBox">${char.friendship}</span>
     <span class="modcharMetaLabel">Friendship</span>
     <span class="modcharStatBox">${char.joined || "N/A"}</span>
