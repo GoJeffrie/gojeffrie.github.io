@@ -1,16 +1,15 @@
 let fullRoster = [];
 let workList = [];
 
-// Load CSV data from Google Sheets and saved state from localStorage
 async function loadRoster() {
   const data = await fetchRosterFromSheet();
 
-  fullRoster = [...data]; // everything from sheet
+  fullRoster = [...data]; 
   const savedWorkNames = JSON.parse(localStorage.getItem('workList')) || [];
 
   workList = savedWorkNames
     .map(name => fullRoster.find(c => c.name === name))
-    .filter(c => c); // Remove nulls in case of missing names
+    .filter(c => c); 
 
   const workNames = new Set(workList.map(c => c.name));
   const rest = fullRoster.filter(c => !workNames.has(c.name));
@@ -19,7 +18,7 @@ async function loadRoster() {
   renderCards(rest, document.getElementById('roster-list'), false);
 }
 
-// Fetch Google Sheets CSV and convert to JSON
+// Grab my data (csv to json)
 async function fetchRosterFromSheet() {
   const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTb7hj7ghBnYKbDle7Ky_JYiofxnhBnF4LKn9n0jhluoNJtfeC5iR_L3c-ZMId9FT1445sQh6uACKeS/pub?gid=1778894250&single=true&output=csv';
   const res = await fetch(url);
@@ -31,7 +30,6 @@ async function fetchRosterFromSheet() {
     Object.fromEntries(headers.map((h, i) => [h.trim(), row[i]?.trim()]))
   );
 
-  // convert strings to numbers where needed
   const roster = data.map(char => ({
     ...char,
     level: +char.level,
@@ -46,7 +44,7 @@ async function fetchRosterFromSheet() {
   return roster;
 }
 
-// Render character cards and placeholder
+// List out a quick view of my characters
 function renderCards(list, container, isWorkList) {
   container.innerHTML = '';
 
@@ -76,11 +74,9 @@ function renderCards(list, container, isWorkList) {
     <div class="gradientOverlay"></div>
 
   <div class="charStats">
-    <!--<div class="levelStat">${char.level}</div>-->
     <div>${char.talent1}</div>
     <div>${char.talent2}</div>
     <div>${char.talent3}</div>
-    <!--<div class="friendStat">${char.friendship}</div>-->
     </div>
     </div>
     
@@ -91,31 +87,66 @@ function renderCards(list, container, isWorkList) {
 `;
     container.appendChild(card);
 
-// Add click event to show modal
 card.addEventListener('click', () => {
   const modal = document.getElementById('charModal');
   const modalBody = document.getElementById('modalBody');
+  const modalContent = modal.querySelector('.modal-content');
 
-  modalBody.innerHTML = `
-<div class="modalBody">
-  <div class="modalLeft">
-    <div class="portraitWrapper">
-      <img class="modalPortrait" src="${char.avatar}" alt="${char.name}">
-      <div class="modalgradientOverlay"></div>
-      <div class="charName">${char.name}</div>
+  modalContent.classList.remove(
+    'element-pyro',
+    'element-hydro',
+    'element-electro',
+    'element-cryo',
+    'element-anemo',
+    'element-geo',
+    'element-dendro'
+  );
+
+for (const cls of card.classList) {
+  if (cls.startsWith('element-')) {
+    modalContent.classList.add(cls);
+  }
+}
+// Pop up (Modal) for details
+modalBody.innerHTML = `
+  <div class="modalBody">
+    <div class="modalLeft">
+      <div class="portraitWrapper">
+        <img class="modalPortrait" src="${char.avatar}" alt="${char.name}">
+        <div class="modalgradientOverlay"></div>
+      </div>
     </div>
+    <div class="modalRight">
+<div class="modalRight">
+
+  <div class="modcharRow">
+    <span class="modcharStatBox">${char.level}</span>
+    <span class="modcharStatBox">C${char.constellation}</span>
+    <span class="modcharName">${char.name}</span>
   </div>
-  <div class="modalRight">
-    <div><strong></strong> ${char.weapon}</div>
-    <div><strong>Joined:</strong> ${char.joined || "N/A"}</div>
-    <div><strong>Friendship:</strong> ${char.friendship}</div>
-    
+
+  <div class="modcharRow">
+    <span class="modcharStatBox">${char.wlevel}</span>
+    <span class="modcharStatBox">R${char.wrefine}</span>
+    <span class="modcharWeapon">${char.weapon}</span>
   </div>
+
+  <div class="modcharRow">
+    <span class="modcharStatBox">${char.friendship}</span>
+    <span class="modcharMetaLabel">Friendship</span>
+    <span class="modcharStatBox">${char.joined || "N/A"}</span>
+    <span class="modcharMetaLabel">Joined</span>
+  </div>
+
 </div>
-  `;
+
+  </div>
+`;
+
 
   modal.style.display = 'block';
 });
+
 
 
 
@@ -183,7 +214,7 @@ document.querySelector('.close-btn').addEventListener('click', () => {
   document.getElementById('charModal').style.display = 'none';
 });
 
-// Optional: close modal if clicking outside the box
+// Close modal if clicking outside the box
 window.addEventListener('click', (e) => {
   const modal = document.getElementById('charModal');
   if (e.target === modal) {
