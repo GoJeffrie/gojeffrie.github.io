@@ -1,3 +1,4 @@
+// script.js
 let fullRoster = [];
 let workList = [];
 
@@ -44,9 +45,10 @@ async function fetchRosterFromSheet() {
   return roster;
 }
 
-// List out a quick view of my characters
-function renderCards(list, container, isWorkList) {
-  container.innerHTML = '';
+function renderCards(list, container, isWorkList, clearContainer = true) {
+  if (clearContainer) {
+    container.innerHTML = '';
+  }
 
   if (isWorkList && list.length === 0) {
     const placeholder = document.createElement('div');
@@ -149,14 +151,8 @@ modalBody.innerHTML = `
 
   modal.style.display = 'block';
 });
-
-
-
-
   });
 }
-
-
 
 // Enable drag-and-drop and track changes
 function enableDragAndDrop() {
@@ -205,22 +201,148 @@ function addSearch() {
   });
 }
 
+// Add event listeners
+function setupEventListeners() {
+  document.querySelector('.close-btn').addEventListener('click', () => {
+    document.getElementById('charModal').style.display = 'none';
+  });
+
+  window.addEventListener('click', (e) => {
+    const modal = document.getElementById('charModal');
+    if (e.target === modal) {
+      modal.style.display = 'none';
+    }
+  });
+
+  const hamburger = document.getElementById('hamburger');
+  const menu = document.getElementById('hamburgerMenu');
+
+  hamburger.addEventListener('click', () => {
+    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+  });
+
+  window.addEventListener('click', (e) => {
+    if (!hamburger.contains(e.target) && !menu.contains(e.target)) {
+      menu.style.display = 'none';
+    }
+  });
+
+  let sortByDateAsc = true; 
+  document.getElementById('sortByDateBtn').addEventListener('click', () => {
+    const rosterList = document.getElementById('roster-list');
+    const sorted = [...fullRoster]
+      .filter(char => !workList.find(w => w.name === char.name))
+      .sort((a, b) => {
+        const dateA = new Date(a.joined || '1900-01-01');
+        const dateB = new Date(b.joined || '1900-01-01');
+        return sortByDateAsc ? dateA - dateB : dateB - dateA;
+      });
+    renderCards(sorted, rosterList, false);
+    sortByDateAsc = !sortByDateAsc;
+  });
+
+  const regionOrder = ['Mondstadt', 'Liyue', 'Inazuma', 'Sumeru', 'Fontaine', 'Natlan', 'Snezhnaya', 'Unknown'];
+  document.getElementById('sortByRegion').addEventListener('click', () => {
+    renderGroupedRoster(fullRoster, 'region', {}, region => regionOrder.indexOf(region));
+  });
+
+  const elementOrder = ['Pyro', 'Hydro', 'Electro', 'Cryo', 'Anemo', 'Geo', 'Dendro'];
+  document.getElementById('sortByElement').addEventListener('click', () => {
+    renderGroupedRoster(fullRoster, 'element', {}, el => elementOrder.indexOf(el));
+  });
+
+  const weaponOrder = ['Sword', 'Claymore', 'Polearm', 'Bow', 'Catalyst'];
+  document.getElementById('sortByWeapon').addEventListener('click', () => {
+    renderGroupedRoster(fullRoster, 'class', {}, weapon => weaponOrder.indexOf(weapon));
+  });
+
+  document.getElementById('sortByRarity').addEventListener('click', () => {
+    renderGroupedRoster(fullRoster, 'rarity', { '5': '5⭐', '4': '4⭐' }, r => 5 - parseInt(r));
+  });
+
+  document.getElementById('sortReset').addEventListener('click', () => {
+    const workNames = new Set(workList.map(c => c.name));
+    const rest = fullRoster.filter(c => !workNames.has(c.name));
+    renderCards(rest, document.getElementById('roster-list'), false);
+  });
+}
+// I want the group headers to have names, images, & counts 
+const iconImageMap = {
+  Anemo: 'images/elements/anemo.png',
+  Pyro: 'images/elements/pyro.png',
+  Hydro: 'images/elements/hydro.png',
+  Electro: 'images/elements/electro.png',
+  Cryo: 'images/elements/cryo.png',
+  Geo: 'images/elements/geo.png',
+  Dendro: 'images/elements/dendro.png'
+};
+
+const displayNameMap = {
+  '5': '5-Star',
+  '4': '4-Star',
+  'Pyro': 'Pyro',
+  'Hydro': 'Hydro',
+  'Electro': 'Electro',
+  'Cryo': 'Cryo',
+  'Geo': 'Geo',
+  'Anemo': 'Anemo',
+  'Dendro': 'Dendro',
+};
+
+function renderGroupedRoster(roster, key, iconMap, sortFn) {
+  const rosterList = document.getElementById('roster-list');
+  rosterList.innerHTML = '';
+
+  const workNames = new Set(workList.map(c => c.name));
+  const rest = roster.filter(c => !workNames.has(c.name));
+
+  const groups = {};
+  rest.forEach(char => {
+    const groupKey = char[key] || 'Unknown';
+    if (!groups[groupKey]) groups[groupKey] = [];
+    groups[groupKey].push(char);
+  });
+
+  const sortedGroups = Object.keys(groups).sort((a, b) => sortFn(a) - sortFn(b));
+
+  sortedGroups.forEach(groupKey => {
+  const header = document.createElement('div');
+  header.className = 'groupHeader';
+
+  const imageDiv = document.createElement('div');
+  imageDiv.className = 'headerImage';
+  imageDiv.style.backgroundImage = `url(${iconImageMap[groupKey] || ''})`;
+
+  const textContainer = document.createElement('div');
+  textContainer.className = 'headerTextContainer';
+
+  const textDiv = document.createElement('div');
+  textDiv.className = 'headerText';
+  const displayName = displayNameMap[groupKey] || groupKey;
+  textDiv.textContent = displayName;
+
+  const countDiv = document.createElement('div');
+  countDiv.className = 'headerCount';
+  countDiv.textContent = `${groups[groupKey].length}`;
+
+  textContainer.appendChild(textDiv);
+  textContainer.appendChild(countDiv);
+  header.appendChild(imageDiv);
+  header.appendChild(textContainer);
+  rosterList.appendChild(header);
+
+  renderCards(groups[groupKey], rosterList, false, false);
+});
+
+}
+
 // Initialize page
+
 document.addEventListener('DOMContentLoaded', () => {
   loadRoster().then(() => {
     enableDragAndDrop();
     addSearch();
+    setupEventListeners();
   });
 });
-
-document.querySelector('.close-btn').addEventListener('click', () => {
-  document.getElementById('charModal').style.display = 'none';
-});
-
-// Close modal if clicking outside the box
-window.addEventListener('click', (e) => {
-  const modal = document.getElementById('charModal');
-  if (e.target === modal) {
-    modal.style.display = 'none';
-  }
-});
+// a lot of trial and error to get this working. must review & clean up
