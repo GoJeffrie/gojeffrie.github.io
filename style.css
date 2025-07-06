@@ -4,14 +4,14 @@ body {
   margin: 0;
   font-family: sans-serif;
 }
-
+/* what is the minimum amount of meaningful info I need to see? */
 .card-container {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: center;
 }
-
+/* I want element colors for the card bg */
 .element-pyro {
   background: linear-gradient(to bottom right, #c6262e, #3a0b0f);
 }
@@ -71,14 +71,15 @@ body {
   text-shadow: 1px 1px 2px black;
   display: flex;
   flex-direction: column;
-  gap: 1px; /* spacing between stat lines */
+  gap: 1px; /* this is the spacing between stat lines */
   z-index: 3;
   line-height: 1.1;
 }
 
-
+/* this looks good. for now */
 .portrait {
-  width: 150%;
+  width: 140%;
+  right: 3px;
   position: relative;
   object-fit: contain;
   z-index: 1;
@@ -92,7 +93,7 @@ body {
   width: 100%;
   height: 100%;
   background: linear-gradient(to right, rgba(0, 0, 0, 0.5), transparent 50%);
-  z-index: 2; /* below stats, above portrait */
+  z-index: 2; /* keep this gradient below stats, above portrait */
   pointer-events: none;
 }
 
@@ -110,7 +111,7 @@ body {
   z-index: 3;
 }
 
-
+/* I want the constellation color to indicate rarity */
 .fourstarStat {
   color: #b488f2;
   font-weight: bold;
@@ -121,12 +122,6 @@ body {
 
 }
 
-.levelStat {
-  color: #ff5a5a; 
-  font-weight: bold;
-}
-
-
 .content {
   display: flex;
   flex-direction: column;
@@ -134,35 +129,15 @@ body {
   z-index: 3;
 }
 
-.charInfo {
-  position: relative;
-  margin-right: 10px;
-  z-index: 1;
-}
 
-input#search {
-  position: fixed;
-  top: 0;
-  z-index: 10;
-  margin-top: 1em;
-  left: 50%;                  
-  transform: translateX(-50%);
-  display: block;
-  padding: 0.5rem;
-  border-radius: 6px;
-  border: none;
-  width: 50%;
-  max-width: 300px;
-}
 
-/* Work list is what I'm working*/
+/* I want a section for what I'm currently grinding*/
 #work-list {
   position: fixed;
   top: 0;
   z-index: 10;
   margin-top: 4em;
   width: 380px;
-
   left: 50%;                  
   transform: translateX(-50%);
   background: linear-gradient(to bottom right, #314a79, #161e2b);
@@ -178,7 +153,7 @@ input#search {
   align-items: flex-start;
 }
 
-/* Roster lists everything I got*/
+/* I want a yearbook view of the entire fam/class */
 #roster-list {
   z-index:5;
   gap: 18px;
@@ -211,7 +186,7 @@ input#search {
   opacity: 0.7;
 }
 
-/* Information Pop Up (modal)*/
+/* I want a pop up for additional info. Don't break year book view. */
 .modal {
   display: none;
   position: fixed;
@@ -238,7 +213,6 @@ input#search {
   transform: translate(-50%, -50%);
   box-shadow: 0 0 10px rgba(0,0,0,0.8);
 }
-
 
 .close-btn {
   position: absolute;
@@ -352,3 +326,153 @@ input#search {
   font-weight: 600;
   color: #a0c0ff;
 }
+
+/* I want a hamburger menu for roster sorting options. */
+.navSection {
+  position: fixed;
+  top: 4px;
+  z-index: 10;
+  left: 50%;                  
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px;
+}
+
+#search {
+  flex-grow: 1;
+  padding: 6px 10px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: none;
+}
+
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+  width: 19px;
+  height: 19px;
+  gap: 3px;
+  margin-left: 8px;
+  background: linear-gradient(to bottom right, #314a79, #161e2b);
+  border: .5px solid #32baf462;
+  border-radius: 6px;
+  padding: 6px;
+  transition: background 0.2s ease;
+}
+
+.hamburger:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.hamburger .bar {
+  height: 3px;
+  background-color: white;
+  border-radius: 0px;
+}
+
+.hamburgerMenu {
+  position: fixed;
+  top: 12px;
+  left: 50%;                  
+  transform: translateX(-50%);
+  background: linear-gradient(to bottom right, #181c25, #161e2b);
+  border: .5px solid #32baf462;
+  border-radius: 6px;
+  z-index: 1000;
+  padding: 0px 4px;
+  display: none;
+}
+
+.hamburgerMenu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 8px; 
+}
+
+.hamburgerMenu li {
+  margin: 0; 
+}
+
+.hamburgerMenu button {
+  width: auto;
+  background: none;
+  color: white;
+  font-size: 1.2rem;
+  text-align: center;
+  border: none;
+  padding: 5px 5px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.hamburgerMenu button:hover {
+  background-color: #2F4673;
+  border-radius: 4px;
+}
+
+.tooltip {
+  position: relative;
+}
+
+.tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: 40px;
+  transform: translateX(-50%);
+  background: #333;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  font-size: 0.75rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+  z-index: 10;
+}
+
+.tooltip:hover::after {
+  opacity: 1;
+}
+
+/* Header Style */
+.groupHeader {
+  aspect-ratio: 1 / 1;
+  width: 70px;
+  max-width: 70px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to bottom right, #1a1a1a, #2e2e2e);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 7px;
+  box-shadow: 0 0 3px rgba(255, 255, 255, 0.05);
+  margin-bottom: 4px;
+  position: relative;
+  overflow: hidden;
+  z-index: 4;
+}
+
+.headerText {
+  color: whitesmoke;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.headerCount {
+  font-size: .8rem;
+  color: #a0c0ff;
+  opacity: 0.8;
+  text-align: center;
+}
+
+
