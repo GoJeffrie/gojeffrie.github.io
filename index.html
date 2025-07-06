@@ -9,10 +9,30 @@
 </head>
 <body>
 
-  <div class="navSection">  
+<!-- Search + Hamburger Row -->
+<div class="navSection">
   <input type="text" id="search" placeholder="Search characters..." autocomplete="off" />
-  </div>
 
+  <div class="hamburger" id="hamburger">
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+  </div>
+</div>
+
+<!-- Menu outside navSection -->
+<div class="hamburgerMenu" id="hamburgerMenu">
+  <ul>
+   <li><button id="sortByDateBtn" class="tooltip" data-tooltip="Sort by Joined">🌠</button></li>
+   <li><button id="sortByRegion" class="tooltip" data-tooltip="Sort by Region">🗺️</button></li>
+   <li><button id="sortByElement" class="tooltip" data-tooltip="Sort by Element">💎</button></li>
+   <li><button id="sortByWeapon" class="tooltip" data-tooltip="Sort by Weapon"">⚔️</button></li>
+   <li><button id="sortByRarity" class="tooltip" data-tooltip="Sort by Rarity">⭐</button></li>
+   <li><button id="sortReset" class="tooltip" data-tooltip="Reset Sort">🔄</button></li>
+
+  </ul>
+</div>
+<!--Float the Work above Roster-->
   <div class="workSection">
     <div id="work-list" class="card-container droppable">
     <div id="work-placeholder" class="placeholder"></div>
@@ -20,10 +40,10 @@
   </div>
 
   <div class="rosterSection">
-    <div id="roster-list" class="card-container droppable"></div><!--carousel-->
+    <div id="roster-list" class="card-container droppable"></div>
   </div>
 
-<!-- Modal Structure | hmmmm -->
+<!-- Modal pop up for character info -->
 <div id="charModal" class="modal">
   <div class="modal-content">
     <span class="close-btn">&times;</span>
@@ -31,7 +51,7 @@
   </div>
 </div>
 
-  <footer class="footer">Made with ❤️ by GoJeffrie. All Rights Reserved © 2025</footer>
+  <footer class="footer">Just Scratching an Itch. Thank You Enka. All Rights Reserved © 2025</footer>
 
   <script src="script.js"></script>
 </body>
