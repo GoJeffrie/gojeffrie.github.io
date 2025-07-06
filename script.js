@@ -75,7 +75,7 @@ function renderCards(list, container, isWorkList) {
     </div>
     <div class="gradientOverlay"></div>
 
-    <div class="charStats">
+  <div class="charStats">
     <!--<div class="levelStat">${char.level}</div>-->
     <div>${char.talent1}</div>
     <div>${char.talent2}</div>
@@ -83,14 +83,46 @@ function renderCards(list, container, isWorkList) {
     <!--<div class="friendStat">${char.friendship}</div>-->
     </div>
     </div>
-    <div class="constellationBadge ${constellationClass}">C${char.constellation}</div>
-
     
-   <div class="content"></div>
+  <div class="constellationBadge ${constellationClass}">C${char.constellation}</div>
+  
+  <div class="content"></div>
+   
 `;
     container.appendChild(card);
+
+// Add click event to show modal
+card.addEventListener('click', () => {
+  const modal = document.getElementById('charModal');
+  const modalBody = document.getElementById('modalBody');
+
+  modalBody.innerHTML = `
+<div class="modalBody">
+  <div class="modalLeft">
+    <div class="portraitWrapper">
+      <img class="modalPortrait" src="${char.avatar}" alt="${char.name}">
+      <div class="modalgradientOverlay"></div>
+      <div class="charName">${char.name}</div>
+    </div>
+  </div>
+  <div class="modalRight">
+    <div><strong></strong> ${char.weapon}</div>
+    <div><strong>Joined:</strong> ${char.joined || "N/A"}</div>
+    <div><strong>Friendship:</strong> ${char.friendship}</div>
+    
+  </div>
+</div>
+  `;
+
+  modal.style.display = 'block';
+});
+
+
+
   });
 }
+
+
 
 // Enable drag-and-drop and track changes
 function enableDragAndDrop() {
@@ -145,4 +177,16 @@ document.addEventListener('DOMContentLoaded', () => {
     enableDragAndDrop();
     addSearch();
   });
+});
+
+document.querySelector('.close-btn').addEventListener('click', () => {
+  document.getElementById('charModal').style.display = 'none';
+});
+
+// Optional: close modal if clicking outside the box
+window.addEventListener('click', (e) => {
+  const modal = document.getElementById('charModal');
+  if (e.target === modal) {
+    modal.style.display = 'none';
+  }
 });
