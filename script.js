@@ -15,15 +15,16 @@ const weaponOrder = ['Sword', 'Claymore', 'Polearm', 'Bow', 'Catalyst'];
 
 let sortByDateAsc = true;
 
-const iconImageMap = {
-  Anemo: 'images/elements/anemo.png',
-  Pyro: 'images/elements/pyro.png',
-  Hydro: 'images/elements/hydro.png',
-  Electro: 'images/elements/electro.png',
-  Cryo: 'images/elements/cryo.png',
-  Geo: 'images/elements/geo.png',
-  Dendro: 'images/elements/dendro.png'
-};
+// Need to make a better visual divider
+//  const iconImageMap = {
+//  Anemo: 'images/elements/anemo.png',
+//  Pyro: 'images/elements/pyro.png',
+//  Hydro: 'images/elements/hydro.png',
+//  Electro: 'images/elements/electro.png',
+//  Cryo: 'images/elements/cryo.png',
+//  Geo: 'images/elements/geo.png',
+//  Dendro: 'images/elements/dendro.png'
+//  };
 
 const displayNameMap = {
   '5': '5-Star',
@@ -266,7 +267,7 @@ document.getElementById('sortByDateBtn').addEventListener('click', () => {
       overlayId: 'elementOverlay',
       icons: { on: '📅', off: '🅰️' },
       groupKey: 'element',
-      iconMap: iconImageMap,
+      iconMap: {},
       sortFn: el => elementOrder.indexOf(el)
     });
   });
@@ -288,7 +289,7 @@ document.getElementById('sortByDateBtn').addEventListener('click', () => {
       overlayId: 'rarityOverlay',
       icons: { on: '📅', off: '🅰️' },
       groupKey: 'rarity',
-      iconMap: displayNameMap,
+      iconMap: {},
       sortFn: r => 5 - parseInt(r)
     });
   });
