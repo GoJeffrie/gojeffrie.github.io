@@ -20,27 +20,37 @@
   </div>
 </div>
 
-<!-- Menu outside navSection -->
 <div class="hamburgerMenu" id="hamburgerMenu">
   <ul>
-   <li><button id="sortByDateBtn" class="tooltip" data-tooltip="Sort by Joined">🌠</button></li>
-   <li><button id="sortByRegion" class="tooltip" data-tooltip="Sort by Region">🗺️</button></li>
-   <li><button id="sortByElement" class="tooltip" data-tooltip="Sort by Element">💎</button></li>
-   <li><button id="sortByWeapon" class="tooltip" data-tooltip="Sort by Weapon"">⚔️</button></li>
-   <li><button id="sortByRarity" class="tooltip" data-tooltip="Sort by Rarity">⭐</button></li>
-   <li><button id="sortReset" class="tooltip" data-tooltip="Reset Sort">🔄</button></li>
+   <li><button id="sortByDateBtn" class="tooltip" data-tooltip="Sort by Joined">🗓️<span id="sortByDateIcon" class="overlayEmoji">◀️</span>
+   </button></li>
 
+   <li><button id="sortByRegion" class="tooltip" data-tooltip="Sort by Region">🌎<span id="regionOverlay" class="overlayEmoji">🅰️</span>
+   </button></li>
+
+   <li><button id="sortByElement" class="tooltip" data-tooltip="Sort by Element">💎<span id="elementOverlay" class="overlayEmoji">🅰️</span>
+   </button></li>
+
+   <li><button id="sortByWeapon" class="tooltip" data-tooltip="Sort by Weapon">⚔️<span id="weaponOverlay" class="overlayEmoji">🅰️</span>
+   </button></li>
+
+   <li><button id="sortByRarity" class="tooltip" data-tooltip="Sort by Rarity">⭐<span id="rarityOverlay" class="overlayEmoji">🅰️</span>
+   </button></li>
+
+   <li><button id="sortReset" class="tooltip" data-tooltip="Reset Sort">🔄</button></li>
   </ul>
 </div>
 
 <div class="blurOverlay"></div>
-  
+
 <!--Float the Work above Roster-->
   <div class="workSection">
     <div id="work-list" class="card-container droppable">
     <div id="work-placeholder" class="placeholder"></div>
     </div>
   </div>
+
+<div class="blurOverlay"></div>
 
   <div class="rosterSection">
     <div id="roster-list" class="card-container droppable"></div>
@@ -54,7 +64,7 @@
   </div>
 </div>
 
-  <footer class="footer">Learning Javascript. All Rights Reserved ©2025</footer>
+  <footer class="footer">Messing with Javascript. All Rights Reserved ©2025</footer>
 
   <script src="script.js"></script>
 </body>
