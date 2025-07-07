@@ -55,6 +55,7 @@ body {
   font-family: sans-serif;
   position: relative;
   overflow: hidden;
+  z-index: 2;
 }
 
 .placeholder {
@@ -91,7 +92,7 @@ body {
   right: 3px;
   position: relative;
   object-fit: contain;
-  z-index: 1;
+  z-index: 2;
   filter: brightness(0.85);
 }
 
@@ -155,7 +156,6 @@ body {
   border-radius: 6px;
   padding: 1rem;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
@@ -180,7 +180,7 @@ body {
 
 /* I want a yearbook view of the entire fam/class */
 #roster-list {
-  z-index:5;
+  z-index:1;
   gap: 18px;
   justify-items: center;
   margin-top: 13em;
@@ -188,7 +188,7 @@ body {
 
 .roster-wrapper {
   overflow-x: auto;
-  z-index:5;
+  z-index:1;
 }
 
 
