@@ -491,4 +491,19 @@ body {
   text-align: center;
 }
 
+.icon-button {
+  position: relative;
+  font-size: 1.2rem;
+  line-height: 1;
+  padding: 6px;
+}
+
+.overlayEmoji {
+  filter: brightness(0.8) saturate(0.8);
+  position: absolute;
+  font-size: 0.65em;
+  top: 0.1em;
+  right: 0.1em;
+  pointer-events: none;
+}
 
