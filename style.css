@@ -55,7 +55,6 @@ body {
   font-family: sans-serif;
   position: relative;
   overflow: hidden;
-  z-index: 2;
 }
 
 .placeholder {
@@ -92,7 +91,7 @@ body {
   right: 3px;
   position: relative;
   object-fit: contain;
-  z-index: 2;
+  z-index: 1;
   filter: brightness(0.85);
 }
 
@@ -156,6 +155,7 @@ body {
   border-radius: 6px;
   padding: 1rem;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
@@ -180,7 +180,7 @@ body {
 
 /* I want a yearbook view of the entire fam/class */
 #roster-list {
-  z-index:1;
+  z-index:5;
   gap: 18px;
   justify-items: center;
   margin-top: 13em;
@@ -188,7 +188,7 @@ body {
 
 .roster-wrapper {
   overflow-x: auto;
-  z-index:1;
+  z-index:5;
 }
 
 
@@ -215,6 +215,7 @@ body {
   background-color: rgba(0,0,0,0.6);
 }
 
+
 .modal-content {
   color: white;
   padding: 10px;
@@ -227,7 +228,7 @@ body {
   top: 40%;
   left: 50%;
   transform: translate(-50%, -50%);
-  box-shadow: 0 0 10px rgba(0,0,0,0.8);
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.637);
 }
 
 .close-btn {
@@ -456,6 +457,62 @@ body {
 .tooltip:hover::after {
   opacity: 1;
 }
+
+.profileBox {
+  position: absolute;
+  right: -59px;
+  top: 27px;
+  transform: translateY(-50%);
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #181c25;
+  border: 1px solid #4ea0c3b0;
+}
+
+.profileBox img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* About Pop Up */
+
+.profileModalBody {
+  display: flex;
+  padding: 1rem;
+  border: .5px solid #32baf462;
+  border-radius: 6px;
+}
+
+.modal-content.profile-mode {
+  background: linear-gradient(to bottom right, #314a79, #161e2b);
+  box-shadow: 4 4 4px rgba(0,0,0,0.4); /* softer? */
+}
+
+.profileModalLeft {
+  flex: 0 0 100px;
+}
+
+.profileModalLeft img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #4ea0c3b0;
+}
+
+.profileModalRight {
+  flex: 1;
+}
+.profileModalRight h2 {
+  margin-top: 0;
+  font-size: 1.5rem;
+  color: #facc15; /* gold-ish */
+}
+
 
 /* Header Style */
 .groupHeader {
