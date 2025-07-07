@@ -1,6 +1,16 @@
 // script.js
 let fullRoster = [];
 let workList = [];
+let sortByDateAsc = true;
+
+
+function loadProfilePicture() {
+  const profileUrl = "https://cdn.enka.network/avatars/e22e3c42b64fe4e17b83a12a1cf41e3e/21420945625107344821bf84d717c9a3.png?686bf63f3f";
+  const img = document.getElementById('profilePic');
+  if (img) {
+    img.src = profileUrl;
+  }
+}
 
 const sortState = {
   region: false,
@@ -12,8 +22,6 @@ const sortState = {
 const regionOrder = ['Mondstadt', 'Liyue', 'Inazuma', 'Sumeru', 'Fontaine', 'Natlan', 'Snezhnaya', 'Unknown'];
 const elementOrder = ['Pyro', 'Hydro', 'Electro', 'Cryo', 'Anemo', 'Geo', 'Dendro'];
 const weaponOrder = ['Sword', 'Claymore', 'Polearm', 'Bow', 'Catalyst'];
-
-let sortByDateAsc = true;
 
 // Need to make a better visual divider
 //  const iconImageMap = {
@@ -301,6 +309,42 @@ document.getElementById('sortByDateBtn').addEventListener('click', () => {
   });
 }
 
+document.getElementById('profileBox').addEventListener('click', async () => {
+  const modal = document.getElementById('charModal');
+  const modalBody = document.getElementById('modalBody');
+  const modalContent = modal.querySelector('.modal-content');
+
+  modalContent.className = 'modal-content profile-mode';
+
+
+  // Fetch your text file from GitHub
+  let aboutText = 'Loading...';
+  try {
+    const res = await fetch('https://raw.githubusercontent.com/GoJeffrie/gojeffrie/main/about.txt');
+    if (!res.ok) throw new Error('Failed to fetch about text');
+    aboutText = await res.text();
+  } catch (err) {
+    aboutText = 'Unable to load about text.';
+    console.error(err);
+  }
+
+  modalBody.innerHTML = `
+    <div class="modalBody profileModalBody">
+      <div class="profileModalLeft">
+        <img class="modalPortrait" src="${document.getElementById('profilePic').src}" alt="Profile Picture">
+      </div>
+      <div class="profileModalRight">
+        <h2>Hey There!</h2>
+        <pre style="white-space: pre-wrap; font-family: inherit;">${aboutText}</pre>
+      </div>
+    </div>
+  `;
+
+  modal.style.display = 'block';
+});
+
+
+
 function renderGroupedRoster(roster, key, iconMap, sortFn, secondarySortKey = 'name') {
   const rosterList = document.getElementById('roster-list');
   rosterList.innerHTML = '';
@@ -357,5 +401,6 @@ document.addEventListener('DOMContentLoaded', () => {
     enableDragAndDrop();
     addSearch();
     setupEventListeners();
+    loadProfilePicture(); // ⬅️ Add this here
   });
 });
