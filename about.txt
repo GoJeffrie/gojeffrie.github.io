@@ -1,4 +1,3 @@
-Hey There!
-Thanks for stopping by.
+Thanks for stopping by.<br>
 I made this page to learn some data wranging and UI shenanigans.
 I'm pulling data from Sheets and images from Enka.Network.
