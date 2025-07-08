@@ -91,9 +91,6 @@ async function fetchRosterFromSheet() {
   const rows = csv.split('\n').map(r => r.split(','));
   const headers = rows[0];
 
-  // Lockdown character fetch data. Columns B-z
-  const headers = rows[0].slice(1, 26); // column indexes 1 to 26 (B to Z)
-
   return rows.slice(1).map(row => {
     const obj = Object.fromEntries(
       headers.map((h, i) => [h.trim(), row[i]?.trim().replace(/\|/g, '<br>')])
