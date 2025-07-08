@@ -108,6 +108,7 @@ async function fetchRosterFromSheet() {
   }).filter(char => char.name);
 }
 
+
 function renderCards(list, container, isWorkList, clearContainer = true) {
   if (clearContainer) container.innerHTML = '';
 
@@ -180,12 +181,22 @@ modalBody.innerHTML = `
         <span class="modcharStatBox">${char.joined || "N/A"}</span>
         <span class="modcharMetaLabel">Joined</span>
       </div>
+      <span class="modcharBuildLabel">Build Notes</span>
+      <div class="modcharRow scaleRow">
+        <span class="modcharStatBox">${char.scale || "N/A"}</span>
+        <span class="modcharMetaLabel">Scale</span>
+        <span class="modcharStatBox">${char.clock || "N/A"}</span>
+        <span class="modcharMetaLabel">Clock</span>
+        <span class="modcharStatBox">${char.cup || "N/A"}</span>
+        <span class="modcharMetaLabel">Cup</span>
+        <span class="modcharStatBox">${char.crown || "N/A"}</span>
+        <span class="modcharMetaLabel">Crown</span>
+        <span class="modcharStatBox">${char.regen || "N/A"}</span>
+        <span class="modcharMetaLabel">ER</span>
+      </div>
       <div class="modcharRow notesRow">
-        <span class="modcharMetaLabel">NOTES:</span>
         <div class="modcharNotes">
-          <div class="modcharNote">${char.note1 || "N/A"}</div>
-          <div class="modcharNote">${char.note2}</div>
-          <div class="modcharNote">${char.note3}</div>
+          <div class="modcharNote">${char.note1 || "No notes at this time."}</div>
         </div>
       </div>
     </div>
