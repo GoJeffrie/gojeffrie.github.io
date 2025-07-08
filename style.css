@@ -253,6 +253,7 @@ body {
 
 .modalLeft {
   position: relative;
+  margin-top: 2px;
   width: 100px;
   flex-shrink: 0;
 }
@@ -338,11 +339,35 @@ body {
   font-weight: bold;
   color: #a5eaff;
 }
+
 .modcharMetaLabel {
   font-size: 0.85rem;
   font-weight: 600;
   color: #a0c0ff;
 }
+
+.notesRow {
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 8px;
+}
+
+.modcharNotes {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-left: 6px;
+}
+
+.modcharNote {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 4px 6px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  color: #e0e0e0;
+  max-width: 280px;
+}
+
 
 /* I want a hamburger menu for roster sorting options. */
 .navSection {
