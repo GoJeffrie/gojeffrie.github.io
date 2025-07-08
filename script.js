@@ -181,19 +181,18 @@ modalBody.innerHTML = `
         <span class="modcharStatBox">${char.joined || "N/A"}</span>
         <span class="modcharMetaLabel">Joined</span>
       </div>
-      <span class="modcharBuildLabel">Build Notes</span>
+      <span class="modcharBuildLabel">Building Notes</span>
       <div class="modcharRow scaleRow">
-        <span class="modcharStatBox">${char.scale || "N/A"}</span>
-        <span class="modcharMetaLabel">Scale</span>
-        <span class="modcharStatBox">${char.clock || "N/A"}</span>
+        <span class="modcharStatBox">${char.clock || "N/A"}</span>        
         <span class="modcharMetaLabel">Clock</span>
+        <span class="modcharStatBox">${char.scale || "N/A"}</span>
+        <span class="modcharMetaLabel">Scaling</span>
         <span class="modcharStatBox">${char.cup || "N/A"}</span>
         <span class="modcharMetaLabel">Cup</span>
+        <span class="modcharStatBox">${char.keystat || "N/A"}</span>
+        <span class="modcharMetaLabel">◀</span>
         <span class="modcharStatBox">${char.crown || "N/A"}</span>
         <span class="modcharMetaLabel">Crown</span>
-        <span class="modcharStatBox">${char.regen || "N/A"}</span>
-        <span class="modcharMetaLabel">ER</span>
-        <span class="modcharStatBox">${char.key || "N/A"}</span>
       </div>
       <div class="modcharRow notesRow">
         <div class="modcharNotes">
