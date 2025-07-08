@@ -1,620 +1,430 @@
-body {
-  background: linear-gradient(to bottom right, #030811, #102545);
-  color: white;
-  margin: 0;
-  font-family: sans-serif;
-}
-/* what is the minimum amount of meaningful info I need to see? */
-.card-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-}
-/* I want element colors for the card bg */
-.element-pyro {
-  background: linear-gradient(to bottom right, #c6262e, #3a0b0f);
-}
-
-.element-hydro {
-  background: linear-gradient(to bottom right, #2196f3, #0a1c2d);
-}
-
-.element-electro {
-  background: linear-gradient(to bottom right, #9c27b0, #2c0f35);
-}
-
-.element-cryo {
-  background: linear-gradient(to bottom right, #40c8fa, #12303f);
-}
-
-.element-anemo {
-  background: linear-gradient(to bottom right, #6cb299, #10332e);
-}
-
-.element-geo {
-  background: linear-gradient(to bottom right, #e7b32f, #3e2a00);
-}
-
-.element-dendro {
-  background: linear-gradient(to bottom right, #58ac5d, #1b2b1a);
-}
-
-
-.charCard {
-  aspect-ratio: 1 / 1; 
-  max-width: 70px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  background-color: #000000a2;
-  border-radius: 7px;
-  color: white;
-  border: 1px solid #f6f4f42e;
-  font-family: sans-serif;
-  position: relative;
-  overflow: hidden;
-}
-
-.placeholder {
-  width: 100%;
-  text-align: center;
-  color: #969696;
-  font-style: italic;
-  padding:1rem 1rem;
-  opacity: 0.6;
-  pointer-events: none;
-}
-
-.charStats {
-  position: absolute;
-  top: 23px;
-  left: 1px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  background: rgba(0, 0, 0, 0);
-  padding: 1px 1px;
-  border-radius: 4px;
-  color: #f0f0f0f1;
-  text-shadow: 1px 1px 2px black;
-  display: flex;
-  flex-direction: column;
-  gap: 1px; /* this is the spacing between stat lines */
-  z-index: 3;
-  line-height: 1.1;
-}
-
-/* this looks good. for now */
-.portrait {
-  width: 140%;
-  right: 3px;
-  position: relative;
-  object-fit: contain;
-  z-index: 1;
-  filter: brightness(0.85);
-}
-
-.gradientOverlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.5), transparent 50%);
-  z-index: 2; /* keep this gradient below stats, above portrait */
-  pointer-events: none;
-}
-
-.constellationBadge {
-  position: absolute;
-  top: -2px;
-  left: -2.5px;
-  font-size: 0.8rem;
-  font-weight: bold;
-  background: rgba(0, 0, 0, 0.326);
-  padding: 3px 2px 0px 4px;
-  border-radius:3px;
-  color: #fdd163;
-  text-shadow: 1px 1px 1px rgb(0, 0, 0);
-  z-index: 3;
-}
-
-/* I want the constellation color to indicate rarity */
-.fourstarStat {
-  color: #b488f2;
-  font-weight: bold;
-}
-
-.fivestarStat {
-  color: #fdd163; 
-
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  z-index: 3;
-}
-
-
-
-/* I want a section for what I'm currently grinding*/
-#work-list {
-  position: fixed;
-  top: 0;
-  z-index: 10;
-  margin-top: 4em;
-  width: 380px;
-  height: 75px;
-  left: 50%;                  
-  transform: translateX(-50%);
-  background: linear-gradient(to bottom right, #314a79, #161e2b);
-  border: .5px solid #32baf462;
-  border-radius: 6px;
-  padding: 1rem;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-.blurOverlay {
-  position: fixed;
-  top: -2px;
-  left: -2px;
-  width: 101%;
-  height: 120px; 
-  pointer-events: auto;
-  z-index: 6;
-  border: 1px solid #2F4673;
-  background: linear-gradient(to bottom, rgba(15, 20, 30, 0.923), rgba(15, 20, 30, 0));
-  backdrop-filter: blur(8px); 
-  -webkit-backdrop-filter: blur(8px); 
-  
-}
-
-/* I want a yearbook view of the entire fam/class */
-#roster-list {
-  z-index:5;
-  gap: 18px;
-  justify-items: center;
-  margin-top: 13em;
-}
-
-.roster-wrapper {
-  overflow-x: auto;
-  z-index:5;
-}
-
-
-.footer {
-  text-align: center;
-  color: #969696;
-  font-size: 0.85rem;
-  padding: 1rem 0;
-  border-top: 1px solid #32baf462;
-  margin-top: 1rem;
-  opacity: 0.7;
-}
-
-/* I want a pop up for additional info. Don't break year book view. */
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 999;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0,0,0,0.6);
-}
-
-
-.modal-content {
-  color: white;
-  padding: 10px;
-  border-radius: 8px;
-  width: 380px;
-  max-width: 100%;
-  font-size: 0.9rem;
-  font-family: sans-serif;
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.637);
-}
-
-.close-btn {
-  position: absolute;
-  top: 8px;
-  right: 12px;
-  color: #aaa;
-  font-size: 1.4rem;
-  cursor: pointer;
-}
-
-.close-btn:hover {
-  color: #fff;
-}
-
-.modalBody {
-  display: flex;
-  gap: 10px;
-  padding: 0px;
-  align-items: flex-start;
-}
-
-.modalLeft {
-  position: relative;
-  margin-top: 2px;
-  width: 100px;
-  flex-shrink: 0;
-}
-
-.portraitWrapper {
-  position: relative;
-  width: 100%;
-  border-radius: 7px;
-  overflow: hidden;
-}
-
-.modalPortrait {
-  width: 100%;
-  border : 1px solid #000000;
-  display: block;
-  border-radius: 7px;
-  position: relative;
-  z-index: 10;
-  filter: brightness(0.95);
-}
-
-.modalgradientOverlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 70%; 
-  background: linear-gradient(to top, rgb(0, 0, 0), transparent);
-  z-index: 1;
-  pointer-events: none;
-}
-
-.modalRight {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding: 1px;
-  font-family: 'Segoe UI', sans-serif;
-  color: white;
-}
-
-.modcharRow {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.modcharStatBox {
-  background-color: rgba(0, 0, 0, 0.1);
-  padding: 2px 6px;
-  border-radius: 4px;
-  text-align: center;
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: #fff;
-  white-space: nowrap;
-}
-
-.modcharConBox {
-  background-color: rgba(0, 0, 0, 0.1);
-  padding: 2px 6px;
-  border-radius: 4px;
-  text-align: center;
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: #FFEFA0;
-  white-space: nowrap;
-}
-
-.modcharName {
-  font-size: 1.1rem;
-  font-weight: bold;
-  color: #ffffff;
-}
-
-.modcharConstellation {
-  font-size: 1.1rem;
-  font-weight: bold;
-  color: #ffffff;
-}
-
-.modcharWeapon {
-  font-size: 1rem;
-  font-weight: bold;
-  color: #a5eaff;
-}
-
-.modcharMetaLabel {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #a0c0ff;
-}
-
-.notesRow {
-  display: flex;
-  flex-direction: column; /* override the row layout */
-  align-items: flex-start;
-  gap: 2px; 
-  margin-top: 8px;
-  /* border: 1px solid red; */ /* for design check */ 
-}
-
-.modcharNotesLabel {
-  margin-bottom: 0px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #ccc;
-}
-
-.modcharNotes {
-  display: flex;
-  flex-direction: column;
-  padding: 2px 6px;
-  border-radius: 4px;
-}
-
-.scaleRow {
-  display: grid;
-  grid-template-columns: repeat(2, auto auto); /* stat + label per item */
-  gap: 4px 10px; /* row gap, column gap */
-  align-items: center;
-  padding-top: 10px;
-}
-
-.scaleRow .modcharStatBox {
-  background-color: rgba(0, 0, 0, 0.1);
-  padding: 2px 6px;
-  border-radius: 4px;
-  text-align: center;
-}
-
-.scaleRow .modcharMetaLabel {
-  font-size: 0.75rem;
-  color: #ccc;
-}
-
-.modcharBuildLabel {
-  margin-top: 9px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #ccc;
-}
-
-/* I want a hamburger menu for roster sorting options. */
-.navSection {
-  position: fixed;
-  top: 4px;
-  z-index: 10;
-  left: 50%;                  
-  transform: translateX(-50%);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-}
-
-#search {
-  flex-grow: 1;
-  padding: 6px 10px;
-  font-size: 1rem;
-  border-radius: 6px;
-  border: none;
-}
-
-.hamburger {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  cursor: pointer;
-  width: 19px;
-  height: 19px;
-  gap: 3px;
-  margin-left: 8px;
-  background: linear-gradient(to bottom right, #314a79, #161e2b);
-  border: .5px solid #32baf462;
-  border-radius: 6px;
-  padding: 6px;
-  transition: background 0.2s ease;
-}
-
-.hamburger:hover {
-  background: rgba(255, 255, 255, 0.15);
-}
-
-.hamburger .bar {
-  height: 3px;
-  background-color: white;
-  border-radius: 0px;
-}
-
-.hamburgerMenu {
-  position: fixed;
-  top: 12px;
-  left: 50%;                  
-  transform: translateX(-50%);
-  background: linear-gradient(to bottom right, #181c25, #161e2b);
-  border: .5px solid #32baf462;
-  border-radius: 6px;
-  z-index: 1000;
-  padding: 0px 6px;
-  display: none;
-}
-
-.hamburgerMenu ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  gap: 8px; 
-}
-
-.hamburgerMenu li {
-  margin: 0; 
-}
-
-.hamburgerMenu button {
-  width: auto;
-  background: none;
-  color: white;
-  font-size: 1.2rem;
-  text-align: center;
-  border: none;
-  padding: 5px 5px;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-.hamburgerMenu button:hover {
-  background-color: #2F4673;
-  border-radius: 4px;
-}
-
-.tooltip {
-  position: relative;
-}
-
-.tooltip::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  top: 40px;
-  transform: translateX(-50%);
-  background: #333;
-  color: #fff;
-  padding: 4px 8px;
-  border-radius: 4px;
-  white-space: nowrap;
-  font-size: 0.75rem;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.2s;
-  z-index: 10;
-}
-
-.tooltip:hover::after {
-  opacity: 1;
-}
-
-.profileBox {
-  position: absolute;
-  right: -59px;
-  top: 27px;
-  transform: translateY(-50%);
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  overflow: hidden;
-  background: #181c25;
-  border: 1px solid #4ea0c3b0;
-}
-
-.profileBox img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-/* About Pop Up */
-
-.profileModalBody {
-  display: flex;
-  padding: 1rem;
-  border: .5px solid #32baf462;
-  border-radius: 6px;
-}
-
-.modal-content.profile-mode {
-  background: linear-gradient(to bottom right, #314a79, #161e2b);
-  box-shadow: 4 4 4px rgba(0,0,0,0.4); /* softer? */
-}
-
-.profileModalLeft {
-  flex: 0 0 100px;
-}
-
-.profileModalLeft img {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #4ea0c3b0;
-}
-
-.profileModalRight {
-  flex: 1;
-}
-.profileModalRight h2 {
-  margin-top: 0;
-  font-size: 1.5rem;
-  color: #facc15; /* gold-ish */
-}
-
-
-/* Header Style */
-.groupHeader {
-  aspect-ratio: 1 / 1;
-  width: 70px;
-  max-width: 70px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(to bottom right, #1a1a1a, #2e2e2e);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 7px;
-  box-shadow: 0 0 3px rgba(255, 255, 255, 0.05);
-  margin-bottom: 4px;
-  position: relative;
-  overflow: hidden;
-  z-index: 4;
-}
-
-.headerText {
-  color: whitesmoke;
-  font-size: 0.8rem;
-  font-weight: bold;
-  text-align: center;
-}
-
-.headerCount {
-  margin-top: 5px;
-  font-size: .8rem;
-  color: #a0c0ff;
-  opacity: 0.8;
-  text-align: center;
-}
-
-.icon-button {
-  position: relative;
-  font-size: 1.2rem;
-  line-height: 1;
-  padding: 6px;
-}
-
-.overlayEmoji {
-  filter: brightness(0.8) saturate(0.8);
-  position: absolute;
-  font-size: 0.65em;
-  top: 0.1em;
-  right: 0.1em;
-  pointer-events: none;
-}
-
+// script.js
+let fullRoster = [];
+let workList = [];
+let sortByDateAsc = true;
+
+
+function loadProfilePicture() {
+  const profileUrl = "https://cdn.enka.network/avatars/e22e3c42b64fe4e17b83a12a1cf41e3e/21420945625107344821bf84d717c9a3.png?686bf63f3f";
+  const img = document.getElementById('profilePic');
+  if (img) {
+    img.src = profileUrl;
+  }
+}
+
+const sortState = {
+  region: false,
+  element: false,
+  weapon: false,
+  rarity: false
+};
+
+const regionOrder = ['Mondstadt', 'Liyue', 'Inazuma', 'Sumeru', 'Fontaine', 'Natlan', 'Snezhnaya', 'Unknown'];
+const elementOrder = ['Pyro', 'Hydro', 'Electro', 'Cryo', 'Anemo', 'Geo', 'Dendro'];
+const weaponOrder = ['Sword', 'Claymore', 'Polearm', 'Bow', 'Catalyst'];
+
+// Need to make a better visual divider
+//  const iconImageMap = {
+//  Anemo: 'images/elements/anemo.png',
+//  Pyro: 'images/elements/pyro.png',
+//  Hydro: 'images/elements/hydro.png',
+//  Electro: 'images/elements/electro.png',
+//  Cryo: 'images/elements/cryo.png',
+//  Geo: 'images/elements/geo.png',
+//  Dendro: 'images/elements/dendro.png'
+//  };
+
+const displayNameMap = {
+  '5': '5-Star',
+  '4': '4-Star',
+  Pyro: 'Pyro',
+  Hydro: 'Hydro',
+  Electro: 'Electro',
+  Cryo: 'Cryo',
+  Geo: 'Geo',
+  Anemo: 'Anemo',
+  Dendro: 'Dendro'
+};
+
+function handleSortToggle({ key, overlayId, icons, groupKey, iconMap, sortFn }) {
+  sortState[key] = !sortState[key];
+
+  const overlay = document.getElementById(overlayId);
+  if (overlay && icons) {
+    overlay.textContent = sortState[key] ? icons.on : icons.off;
+  }
+
+  renderGroupedRoster(
+    fullRoster,
+    groupKey,
+    iconMap,
+    sortFn,
+    sortState[key] ? 'joined' : 'name'
+  );
+}
+
+async function loadRoster() {
+  try {
+    const data = await fetchRosterFromSheet();
+    fullRoster = [...data];
+    const savedWorkNames = JSON.parse(localStorage.getItem('workList')) || [];
+
+    workList = savedWorkNames
+      .map(name => fullRoster.find(c => c.name === name))
+      .filter(Boolean);
+
+    const workNames = new Set(workList.map(c => c.name));
+    const rest = fullRoster.filter(c => !workNames.has(c.name));
+
+    renderCards(workList, document.getElementById('work-list'), true);
+    renderCards(rest, document.getElementById('roster-list'), false);
+  } catch (err) {
+    console.error('Failed to load roster:', err);
+    alert('Unable to load roster. Please try again later.');
+  }
+}
+
+async function fetchRosterFromSheet() {
+  const url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTb7hj7ghBnYKbDle7Ky_JYiofxnhBnF4LKn9n0jhluoNJtfeC5iR_L3c-ZMId9FT1445sQh6uACKeS/pub?gid=1778894250&single=true&output=csv';
+  const res = await fetch(url);
+  const csv = await res.text();
+  const rows = csv.split('\n').map(r => r.split(','));
+  const headers = rows[0];
+
+  return rows.slice(1).map(row => {
+    const obj = Object.fromEntries(
+      headers.map((h, i) => [h.trim(), row[i]?.trim().replace(/\|/g, '<br>')])
+    );
+    return {
+      ...obj,
+      level: +obj.level,
+      constellation: +obj.constellation,
+      talent1: +obj.talent1,
+      talent2: +obj.talent2,
+      talent3: +obj.talent3,
+      friendship: +obj.friendship,
+      rarity: +obj.rarity
+    };
+  }).filter(char => char.name);
+}
+
+
+function renderCards(list, container, isWorkList, clearContainer = true) {
+  if (clearContainer) container.innerHTML = '';
+
+  if (isWorkList && list.length === 0) {
+    const placeholder = document.createElement('div');
+    placeholder.id = 'work-placeholder';
+    placeholder.className = 'placeholder';
+    placeholder.textContent = 'Work Area';
+    container.appendChild(placeholder);
+  }
+
+  list.forEach(char => {
+    const card = document.createElement('div');
+    const constellationClass = char.rarity === 5 ? 'fivestarStat' : 'fourstarStat';
+    card.className = `charCard element-${char.element.toLowerCase()}`;
+    card.dataset.name = char.name;
+    card.innerHTML = `
+      <div class="charInfo">
+        <img class="portrait" src="${char.avatar}" alt="${char.name}">
+      </div>
+      <div class="gradientOverlay"></div>
+      <div class="charStats">
+        <div>${char.talent1}</div>
+        <div>${char.talent2}</div>
+        <div>${char.talent3}</div>
+      </div>
+      <div class="constellationBadge ${constellationClass}">C${char.constellation}</div>
+    `;
+
+    card.addEventListener('click', () => showModal(char, card));
+    container.appendChild(card);
+  });
+}
+
+function showModal(char, card) {
+  const modal = document.getElementById('charModal');
+  const modalBody = document.getElementById('modalBody');
+  const modalContent = modal.querySelector('.modal-content');
+
+  modalContent.className = 'modal-content';
+  for (const cls of card.classList) {
+    if (cls.startsWith('element-')) modalContent.classList.add(cls);
+  }
+
+modalBody.innerHTML = `
+  <div class="modalBody">
+    <div class="modalLeft">
+      <div class="portraitWrapper">
+        <img class="modalPortrait" src="${char.avatar}" alt="${char.name}">
+        <div class="modalgradientOverlay"></div>
+      </div>
+    </div>
+    <div class="modalRight">
+      <div class="modcharRow">
+        <span class="modcharConBox">${char.talent1}</span>
+        <span class="modcharStatBox">${char.level}</span>
+        <span class="modcharStatBox">C${char.constellation}</span>
+        <span class="modcharName">${char.name}</span>
+      </div>
+      <div class="modcharRow">
+        <span class="modcharConBox">${char.talent2}</span>
+        <span class="modcharStatBox">${char.wlevel}</span>
+        <span class="modcharStatBox">R${char.wrefine}</span>
+        <span class="modcharWeapon">${char.weapon}</span>
+      </div>
+      <div class="modcharRow">
+        <span class="modcharConBox">${char.talent3}</span>
+        <span class="modcharStatBox">${char.friendship}</span>
+        <span class="modcharMetaLabel">Friendship</span>
+        <span class="modcharStatBox">${char.joined || "N/A"}</span>
+        <span class="modcharMetaLabel">Joined</span>
+      </div>
+      <span class="modcharBuildLabel">Build Notes</span>
+      <div class="modcharRow scaleRow">
+        <span class="modcharStatBox">${char.scale || "N/A"}</span>
+        <span class="modcharMetaLabel">Scale</span>
+        <span class="modcharStatBox">${char.clock || "N/A"}</span>
+        <span class="modcharMetaLabel">Clock</span>
+        <span class="modcharStatBox">${char.cup || "N/A"}</span>
+        <span class="modcharMetaLabel">Cup</span>
+        <span class="modcharStatBox">${char.crown || "N/A"}</span>
+        <span class="modcharMetaLabel">Crown</span>
+        <span class="modcharStatBox">${char.regen || "N/A"}</span>
+        <span class="modcharMetaLabel">ER</span>
+      </div>
+      <div class="modcharRow notesRow">
+        <div class="modcharNotes">
+          <div class="modcharNote">${char.note1 || "No notes at this time."}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+`;
+;
+  modal.style.display = 'block';
+}
+
+function enableDragAndDrop() {
+  const workListEl = document.getElementById('work-list');
+  const rosterListEl = document.getElementById('roster-list');
+
+  [workListEl, rosterListEl].forEach(el => {
+    new Sortable(el, {
+      group: 'shared',
+      animation: 150,
+      onAdd: updateStoredWorkList,
+      onRemove: updateStoredWorkList,
+      onSort: updateStoredWorkList
+    });
+  });
+}
+
+function updateStoredWorkList() {
+  const workCards = document.querySelectorAll('#work-list .charCard');
+  const names = Array.from(workCards).map(card => card.dataset.name);
+  localStorage.setItem('workList', JSON.stringify(names));
+
+  const placeholder = document.getElementById('work-placeholder');
+  if (placeholder) placeholder.style.display = workCards.length === 0 ? 'block' : 'none';
+}
+
+function addSearch() {
+  const input = document.getElementById('search');
+  input.addEventListener('input', () => {
+    const term = input.value.toLowerCase();
+    const cards = document.querySelectorAll('#roster-list .charCard');
+    cards.forEach(card => {
+      const name = card.querySelector('img').alt.toLowerCase();
+      card.style.display = name.includes(term) ? '' : 'none';
+    });
+  });
+}
+
+function setupEventListeners() {
+  document.querySelector('.close-btn').addEventListener('click', () => {
+    document.getElementById('charModal').style.display = 'none';
+  });
+
+  window.addEventListener('click', (e) => {
+    if (e.target.id === 'charModal') {
+      document.getElementById('charModal').style.display = 'none';
+    }
+  });
+
+  const hamburger = document.getElementById('hamburger');
+  const menu = document.getElementById('hamburgerMenu');
+
+  hamburger.addEventListener('click', () => {
+    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+  });
+
+  window.addEventListener('click', (e) => {
+    if (!hamburger.contains(e.target) && !menu.contains(e.target)) {
+      menu.style.display = 'none';
+    }
+  });
+
+document.getElementById('sortByDateBtn').addEventListener('click', () => {
+  const rosterList = document.getElementById('roster-list');
+  const sorted = [...fullRoster]
+    .filter(char => !workList.find(w => w.name === char.name))
+    .sort((a, b) => {
+      const dateA = new Date(a.joined || '1900-01-01');
+      const dateB = new Date(b.joined || '1900-01-01');
+      return sortByDateAsc ? dateA - dateB : dateB - dateA;
+    });
+
+  renderCards(sorted, rosterList, false);
+  sortByDateAsc = !sortByDateAsc;
+  const icon = document.getElementById('sortByDateIcon');
+  if (icon) icon.textContent = sortByDateAsc ? '◀️' : '▶️';
+});
+
+  document.getElementById('sortByRegion').addEventListener('click', () => {
+    handleSortToggle({
+      key: 'region',
+      overlayId: 'regionOverlay',
+      icons: { on: '📅', off: '🅰️' },
+      groupKey: 'region',
+      iconMap: {},
+      sortFn: region => regionOrder.indexOf(region)
+    });
+  });
+
+  document.getElementById('sortByElement').addEventListener('click', () => {
+    handleSortToggle({
+      key: 'element',
+      overlayId: 'elementOverlay',
+      icons: { on: '📅', off: '🅰️' },
+      groupKey: 'element',
+      iconMap: {},
+      sortFn: el => elementOrder.indexOf(el)
+    });
+  });
+
+  document.getElementById('sortByWeapon').addEventListener('click', () => {
+    handleSortToggle({
+      key: 'weapon',
+      overlayId: 'weaponOverlay',
+      icons: { on: '📅', off: '🅰️' },
+      groupKey: 'class',
+      iconMap: {},
+      sortFn: w => weaponOrder.indexOf(w)
+    });
+  });
+
+  document.getElementById('sortByRarity').addEventListener('click', () => {
+    handleSortToggle({
+      key: 'rarity',
+      overlayId: 'rarityOverlay',
+      icons: { on: '📅', off: '🅰️' },
+      groupKey: 'rarity',
+      iconMap: {},
+      sortFn: r => 5 - parseInt(r)
+    });
+  });
+
+  document.getElementById('sortReset').addEventListener('click', () => {
+    const workNames = new Set(workList.map(c => c.name));
+    const rest = fullRoster.filter(c => !workNames.has(c.name));
+    renderCards(rest, document.getElementById('roster-list'), false);
+  });
+}
+
+document.getElementById('profileBox').addEventListener('click', async () => {
+  const modal = document.getElementById('charModal');
+  const modalBody = document.getElementById('modalBody');
+  const modalContent = modal.querySelector('.modal-content');
+
+  modalContent.className = 'modal-content profile-mode';
+
+
+  // Fetch your text file from GitHub
+  let aboutText = 'Loading...';
+  try {
+    const res = await fetch('https://raw.githubusercontent.com/GoJeffrie/gojeffrie/main/about.txt');
+    if (!res.ok) throw new Error('Failed to fetch about text');
+    aboutText = await res.text();
+  } catch (err) {
+    aboutText = 'Unable to load about text.';
+    console.error(err);
+  }
+
+  modalBody.innerHTML = `
+    <div class="modalBody profileModalBody">
+      <div class="profileModalLeft">
+        <img class="modalPortrait" src="${document.getElementById('profilePic').src}" alt="Profile Picture">
+      </div>
+      <div class="profileModalRight">
+        <h2>Hey There!</h2>
+        <pre style="white-space: pre-wrap; font-family: inherit;">${aboutText}</pre>
+      </div>
+    </div>
+  `;
+
+  modal.style.display = 'block';
+});
+
+
+
+function renderGroupedRoster(roster, key, iconMap, sortFn, secondarySortKey = 'name') {
+  const rosterList = document.getElementById('roster-list');
+  rosterList.innerHTML = '';
+  const workNames = new Set(workList.map(c => c.name));
+  const rest = roster.filter(c => !workNames.has(c.name));
+
+  const groups = {};
+  rest.forEach(char => {
+    const groupKey = char[key] || 'Unknown';
+    if (!groups[groupKey]) groups[groupKey] = [];
+    groups[groupKey].push(char);
+  });
+
+  const sortedGroups = Object.keys(groups).sort((a, b) => sortFn(a) - sortFn(b));
+
+  sortedGroups.forEach(groupKey => {
+    const header = document.createElement('div');
+    header.className = 'groupHeader';
+
+    const imageDiv = document.createElement('div');
+    imageDiv.className = 'headerImage';
+    imageDiv.style.backgroundImage = `url(${iconMap[groupKey] || ''})`;
+
+    const textContainer = document.createElement('div');
+    textContainer.className = 'headerTextContainer';
+
+    const textDiv = document.createElement('div');
+    textDiv.className = 'headerText';
+    textDiv.textContent = displayNameMap[groupKey] || groupKey;
+
+    const countDiv = document.createElement('div');
+    countDiv.className = 'headerCount';
+    countDiv.textContent = `${groups[groupKey].length}`;
+
+    textContainer.appendChild(textDiv);
+    textContainer.appendChild(countDiv);
+    header.appendChild(imageDiv);
+    header.appendChild(textContainer);
+    rosterList.appendChild(header);
+
+    const sortedGroup = groups[groupKey].sort((a, b) => {
+      if (secondarySortKey === 'joined') {
+        return new Date(a.joined || '1900-01-01') - new Date(b.joined || '1900-01-01');
+      }
+      return a[secondarySortKey].localeCompare(b[secondarySortKey]);
+    });
+
+    renderCards(sortedGroup, rosterList, false, false);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadRoster().then(() => {
+    enableDragAndDrop();
+    addSearch();
+    setupEventListeners();
+    loadProfilePicture(); // ⬅️ Add this here
+  });
+});
