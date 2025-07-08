@@ -189,8 +189,10 @@ modalBody.innerHTML = `
         <span class="modcharMetaLabel">Scaling</span>
         <span class="modcharStatBox">${char.cup || "N/A"}</span>
         <span class="modcharMetaLabel">Cup</span>
-        <span class="modcharStatBox">${char.keystat || "N/A"}</span>
-        <span class="modcharMetaLabel">Key</span>
+        <span class="modcharStatBox">${char.er || "N/A"}</span>
+        <span class="modcharMetaLabel"EM</span>
+        <span class="modcharStatBox">${char.em || "N/A"}</span>
+        <span class="modcharMetaLabel"ER</span>
         <span class="modcharStatBox">${char.crown || "N/A"}</span>
         <span class="modcharMetaLabel">Crown</span>
       </div>
