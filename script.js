@@ -190,7 +190,7 @@ modalBody.innerHTML = `
         <span class="modcharStatBox">${char.cup || "N/A"}</span>
         <span class="modcharMetaLabel">Cup</span>
         <span class="modcharStatBox">${char.keystat || "N/A"}</span>
-        <span class="modcharMetaLabel">◀</span>
+        <span class="modcharMetaLabel">⚠</span>
         <span class="modcharStatBox">${char.crown || "N/A"}</span>
         <span class="modcharMetaLabel">Crown</span>
       </div>
