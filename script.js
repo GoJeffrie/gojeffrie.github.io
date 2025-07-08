@@ -193,6 +193,7 @@ modalBody.innerHTML = `
         <span class="modcharMetaLabel">Crown</span>
         <span class="modcharStatBox">${char.regen || "N/A"}</span>
         <span class="modcharMetaLabel">ER</span>
+        <span class="modcharStatBox">${char.key || "N/A"}</span>
       </div>
       <div class="modcharRow notesRow">
         <div class="modcharNotes">
