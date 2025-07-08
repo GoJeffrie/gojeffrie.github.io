@@ -90,18 +90,22 @@ async function fetchRosterFromSheet() {
   const csv = await res.text();
   const rows = csv.split('\n').map(r => r.split(','));
   const headers = rows[0];
-  return rows.slice(1).map(row =>
-    Object.fromEntries(headers.map((h, i) => [h.trim(), row[i]?.trim()]))
-  ).filter(char => char.name).map(char => ({
-    ...char,
-    level: +char.level,
-    constellation: +char.constellation,
-    talent1: +char.talent1,
-    talent2: +char.talent2,
-    talent3: +char.talent3,
-    friendship: +char.friendship,
-    rarity: +char.rarity
-  }));
+
+  return rows.slice(1).map(row => {
+    const obj = Object.fromEntries(
+      headers.map((h, i) => [h.trim(), row[i]?.trim().replace(/\|/g, '<br>')])
+    );
+    return {
+      ...obj,
+      level: +obj.level,
+      constellation: +obj.constellation,
+      talent1: +obj.talent1,
+      talent2: +obj.talent2,
+      talent3: +obj.talent3,
+      friendship: +obj.friendship,
+      rarity: +obj.rarity
+    };
+  }).filter(char => char.name);
 }
 
 function renderCards(list, container, isWorkList, clearContainer = true) {
