@@ -356,7 +356,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  margin-left: 6px;
+  margin-left: 0px;
 }
 
 .modcharNote {
@@ -365,7 +365,7 @@ body {
   border-radius: 4px;
   font-size: 0.85rem;
   color: #e0e0e0;
-  min-width: 280px;
+  min-width: 236px;
 }
 
 
