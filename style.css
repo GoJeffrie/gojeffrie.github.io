@@ -70,7 +70,8 @@ body {
 .charStats {
   position: absolute;
   top: 23px;
-  left: 1px;
+  left: 13%;
+  transform: translateX(-50%); /* This will center the element horizontally */
   font-size: 0.8rem;
   font-weight: 600;
   background: rgba(0, 0, 0, 0);
@@ -80,10 +81,12 @@ body {
   text-shadow: 1px 1px 2px black;
   display: flex;
   flex-direction: column;
-  gap: 1px; /* this is the spacing between stat lines */
+  gap: 1px; /* This is the spacing between stat lines */
   z-index: 3;
   line-height: 1.1;
+  text-align: center; /* Ensures text is centered inside each stat */
 }
+
 
 /* this looks good. for now */
 .portrait {
@@ -214,7 +217,6 @@ body {
   overflow: auto;
   background-color: rgba(0,0,0,0.6);
 }
-
 
 .modal-content {
   color: white;
@@ -617,3 +619,4 @@ body {
   right: 0.1em;
   pointer-events: none;
 }
+
