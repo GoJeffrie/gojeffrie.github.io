@@ -105,7 +105,7 @@ async function fetchRosterFromSheet() {
       friendship: +obj.friendship,
       rarity: +obj.rarity
     };
-  }).filter(char => char.name);
+  }).filter(char => char.name && (char.live === 'TRUE' || char.live === 'true'));
 }
 
 
