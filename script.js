@@ -148,37 +148,46 @@ function showModal(char, card) {
     if (cls.startsWith('element-')) modalContent.classList.add(cls);
   }
 
-  modalBody.innerHTML = `
-    <div class="modalBody">
-      <div class="modalLeft">
-        <div class="portraitWrapper">
-          <img class="modalPortrait" src="${char.avatar}" alt="${char.name}">
-          <div class="modalgradientOverlay"></div>
-        </div>
+modalBody.innerHTML = `
+  <div class="modalBody">
+    <div class="modalLeft">
+      <div class="portraitWrapper">
+        <img class="modalPortrait" src="${char.avatar}" alt="${char.name}">
+        <div class="modalgradientOverlay"></div>
       </div>
-      <div class="modalRight">
-        <div class="modcharRow">
-          <span class="modcharConBox">${char.talent1}</span>
-          <span class="modcharStatBox">${char.level}</span>
-          <span class="modcharStatBox">C${char.constellation}</span>
-          <span class="modcharName">${char.name}</span>
-        </div>
-        <div class="modcharRow">
-          <span class="modcharConBox">${char.talent2}</span>
-          <span class="modcharStatBox">${char.wlevel}</span>
-          <span class="modcharStatBox">R${char.wrefine}</span>
-          <span class="modcharWeapon">${char.weapon}</span>
-        </div>
-        <div class="modcharRow">
-          <span class="modcharConBox">${char.talent3}</span>
-          <span class="modcharStatBox">${char.friendship}</span>
-          <span class="modcharMetaLabel">Friendship</span>
-          <span class="modcharStatBox">${char.joined || "N/A"}</span>
-          <span class="modcharMetaLabel">Joined</span>
+    </div>
+    <div class="modalRight">
+      <div class="modcharRow">
+        <span class="modcharConBox">${char.talent1}</span>
+        <span class="modcharStatBox">${char.level}</span>
+        <span class="modcharStatBox">C${char.constellation}</span>
+        <span class="modcharName">${char.name}</span>
+      </div>
+      <div class="modcharRow">
+        <span class="modcharConBox">${char.talent2}</span>
+        <span class="modcharStatBox">${char.wlevel}</span>
+        <span class="modcharStatBox">R${char.wrefine}</span>
+        <span class="modcharWeapon">${char.weapon}</span>
+      </div>
+      <div class="modcharRow">
+        <span class="modcharConBox">${char.talent3}</span>
+        <span class="modcharStatBox">${char.friendship}</span>
+        <span class="modcharMetaLabel">Friendship</span>
+        <span class="modcharStatBox">${char.joined || "N/A"}</span>
+        <span class="modcharMetaLabel">Joined</span>
+      </div>
+      <div class="modcharRow notesRow">
+        <span class="modcharMetaLabel">NOTES:</span>
+        <div class="modcharNotes">
+          <div class="modcharNote">${char.note1 || "N/A"}</div>
+          <div class="modcharNote">${char.note2}</div>
+          <div class="modcharNote">${char.note3}</div>
         </div>
       </div>
     </div>
-  `;
+  </div>
+`;
+;
   modal.style.display = 'block';
 }
 
