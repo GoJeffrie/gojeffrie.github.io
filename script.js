@@ -89,24 +89,34 @@ async function fetchRosterFromSheet() {
   const res = await fetch(url);
   const csv = await res.text();
   const rows = csv.split('\n').map(r => r.split(','));
-  const headers = rows[0];
 
-  return rows.slice(1).map(row => {
-    const obj = Object.fromEntries(
-      headers.map((h, i) => [h.trim(), row[i]?.trim().replace(/\|/g, '<br>')])
-    );
-    return {
-      ...obj,
-      level: +obj.level,
-      constellation: +obj.constellation,
-      talent1: +obj.talent1,
-      talent2: +obj.talent2,
-      talent3: +obj.talent3,
-      friendship: +obj.friendship,
-      rarity: +obj.rarity
-    };
-  }).filter(char => char.name && (char.live === 'TRUE' || char.live === 'true'));
+  // Only use headers for columns B-Y (skip column A and anything after Y)
+  const headers = rows[0].slice(1, 26); // column indexes 1 to 26 (B to Z)
+
+  return rows.slice(1) // skip header row
+    .filter(row => row[0]?.toLowerCase() === 'true') // column A (index 0) must be "true"
+    .map(row => {
+      const charData = Object.fromEntries(
+        headers.map((h, i) => [
+          h.trim(),
+          row[i + 1]?.trim().replace(/\|/g, '<br>') || '' // offset by +1 since we're skipping column A
+        ])
+      );
+
+      return {
+        ...charData,
+        level: +charData.level,
+        constellation: +charData.constellation,
+        talent1: +charData.talent1,
+        talent2: +charData.talent2,
+        talent3: +charData.talent3,
+        friendship: +charData.friendship,
+        rarity: +charData.rarity
+      };
+    })
+    .filter(char => char.name); // only include entries with a name
 }
+
 
 
 function renderCards(list, container, isWorkList, clearContainer = true) {
@@ -212,16 +222,32 @@ function enableDragAndDrop() {
   const workListEl = document.getElementById('work-list');
   const rosterListEl = document.getElementById('roster-list');
 
-  [workListEl, rosterListEl].forEach(el => {
-    new Sortable(el, {
-      group: 'shared',
-      animation: 150,
-      onAdd: updateStoredWorkList,
-      onRemove: updateStoredWorkList,
-      onSort: updateStoredWorkList
-    });
+  // Worklist (limit to 4)
+  new Sortable(workListEl, {
+    group: 'shared',
+    animation: 150,
+    onAdd: function (evt) {
+      if (workListEl.children.length > 4) {
+        // Revert if more than 4 cards are added
+        evt.from.insertBefore(evt.item, evt.from.children[evt.oldIndex]);
+        return;
+      }
+      updateStoredWorkList();
+    },
+    onRemove: updateStoredWorkList,
+    onSort: updateStoredWorkList
+  });
+
+  // Roster list (no limit)
+  new Sortable(rosterListEl, {
+    group: 'shared',
+    animation: 150,
+    onAdd: updateStoredWorkList,
+    onRemove: updateStoredWorkList,
+    onSort: updateStoredWorkList
   });
 }
+
 
 function updateStoredWorkList() {
   const workCards = document.querySelectorAll('#work-list .charCard');
