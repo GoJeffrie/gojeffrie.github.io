@@ -11,6 +11,7 @@ body {
   gap: 1rem;
   justify-content: center;
 }
+
 /* I want element colors for the card bg */
 .element-pyro {
   background: linear-gradient(to bottom right, #c6262e, #3a0b0f);
@@ -71,7 +72,7 @@ body {
   position: absolute;
   top: 23px;
   left: 13%;
-  transform: translateX(-50%); /* This will center the element horizontally */
+  transform: translateX(-50%); 
   font-size: 0.8rem;
   font-weight: 600;
   background: rgba(0, 0, 0, 0);
@@ -81,10 +82,10 @@ body {
   text-shadow: 1px 1px 2px black;
   display: flex;
   flex-direction: column;
-  gap: 1px; /* This is the spacing between stat lines */
+  gap: 1px; 
   z-index: 3;
   line-height: 1.1;
-  text-align: center; /* Ensures text is centered inside each stat */
+  text-align: center; 
 }
 
 
@@ -273,11 +274,11 @@ body {
   display: block;
   border-radius: 7px;
   position: relative;
-  z-index: 10;
+  z-index: 2;
   filter: brightness(0.95);
 }
 
-.modalgradientOverlay {
+.modalgradientUnderlay {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -287,6 +288,18 @@ body {
   z-index: 1;
   pointer-events: none;
 }
+
+.modalgradientOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60%; 
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.299), transparent);
+  z-index: 11;
+  pointer-events: none;
+}
+
 
 .modalRight {
   display: flex;
@@ -399,7 +412,6 @@ body {
   font-weight: 600;
   color: #ffffffbc;
 }
-
 
 /* I want a hamburger menu for roster sorting options. */
 .navSection {
