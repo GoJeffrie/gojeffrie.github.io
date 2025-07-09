@@ -168,6 +168,7 @@ modalBody.innerHTML = `
     <div class="modalLeft">
       <div class="portraitWrapper">
         <img class="modalPortrait" src="${char.avatar}" alt="${char.name}">
+        <div class="modalgradientUnderlay"></div>
         <div class="modalgradientOverlay"></div>
       </div>
     </div>
