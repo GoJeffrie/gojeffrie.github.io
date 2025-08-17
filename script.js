@@ -19,7 +19,7 @@ const sortState = {
   rarity: false
 };
 
-const regionOrder = ['Mondstadt', 'Liyue', 'Inazuma', 'Sumeru', 'Fontaine', 'Natlan', 'Snezhnaya', 'Unknown'];
+const regionOrder = ['Mondstadt', 'Liyue', 'Inazuma', 'Sumeru', 'Fontaine', 'Natlan', 'Nod Krai', 'Snezhnaya', 'Unknown'];
 const elementOrder = ['Pyro', 'Hydro', 'Electro', 'Cryo', 'Anemo', 'Geo', 'Dendro'];
 const weaponOrder = ['Sword', 'Claymore', 'Polearm', 'Bow', 'Catalyst'];
 
@@ -457,3 +457,4 @@ document.addEventListener('DOMContentLoaded', () => {
     loadProfilePicture(); // ⬅️ Add this here
   });
 });
+
