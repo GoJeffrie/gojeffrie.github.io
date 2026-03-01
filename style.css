@@ -3,7 +3,6 @@ body {
   min-height:100vh;
   background: linear-gradient(to bottom right, #030811, #102545);
   color: white;
-  margin: 0;
   font-family: sans-serif;
 }
 /* what is the minimum amount of meaningful info I need to see? */
@@ -634,5 +633,6 @@ body {
   right: 0.1em;
   pointer-events: none;
 }
+
 
 
